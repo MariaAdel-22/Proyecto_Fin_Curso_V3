@@ -1,13 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using NuGetAdoPet.Models;
+using ApiProyectoAmazon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiProyecto.Data;
+using ApiProyectoAmazon.Data;
 
-namespace WebApiProyecto.Repositories
+namespace ApiProyectoAmazon.Repositories
 {
     public class RepositoryProtectoras
     {
@@ -83,41 +83,51 @@ namespace WebApiProyecto.Repositories
         public void InsertarAnimal(string codigoProtectora,string nombre,string edad, string genero,string especie,string peso,string imagen)
         {
 
-            string sql = "INSERTAR_ANIMAL @CODIGO,@NOMBRE_ANIMAL,@EDAD,@GENERO,@ESPECIE,@PESO,@IMAGEN";
-
-            SqlParameter paramCodg = new SqlParameter("@CODIGO",codigoProtectora);
-
-            SqlParameter paramNom = new SqlParameter("@NOMBRE_ANIMAL", nombre);
-            SqlParameter paramEd = new SqlParameter("@EDAD", edad);
-
-            SqlParameter paramGen;
+            string esp = "";
 
             if (genero.ToUpper() == "MACHO")
             {
-                paramGen = new SqlParameter("@GENERO", "M");
+                esp = "M";
             }
             else if (genero.ToUpper() == "HEMBRA")
             {
 
-                paramGen = new SqlParameter("@GENERO", "F");
-
+                esp ="F";
             }
             else
             {
                 //Hermafrodita
-                paramGen = new SqlParameter("@GENERO", "H");
+                esp = "H";
             }
 
-            SqlParameter paramEsp = new SqlParameter("@ESPECIE", especie);
-            SqlParameter paramPes = new SqlParameter("@PESO", peso);
-            SqlParameter paramImag = new SqlParameter("@IMAGEN", imagen);
+            Animal an = new Animal
+            {
+                CodigoAnimal = GetMaxCodigoAnimal(),
+                Nombre = nombre,
+                Edad = edad,
+                Genero = genero,
+                Especie = esp,
+                Peso = peso,
+                Imagen = imagen
+            };
 
-            var consulta = this.context.Database.ExecuteSqlRaw(sql, paramCodg, paramNom, paramEd, paramGen, paramEsp, paramPes, paramImag);
+            this.context.Animales.Add(an);
+
+            Adopciones adop = new Adopciones { CodigoAnimal = an.CodigoAnimal, CodigoProtectora = int.Parse(codigoProtectora)};
+
+            this.context.Adopciones.Add(adop);
+
+            this.context.SaveChanges();
         }
 
         public Animal BuscarAnimal(int codigoAnimal)
         {
             return this.context.Animales.Where(x => x.CodigoAnimal == codigoAnimal).FirstOrDefault();
+        }
+
+        public Adopciones BuscarAdopcion(int codigoAnimal)
+        {
+            return this.context.Adopciones.Where(x => x.CodigoAnimal == codigoAnimal).FirstOrDefault();
         }
 
         public string BuscarImagenAnimal(int codigoAnimal)
@@ -144,11 +154,20 @@ namespace WebApiProyecto.Repositories
 
         public void EliminarAnimal(int codigoAnimal) {
 
-            string sql = "SP_ELIMINAR_ANIMAL @CODIGOANIMAL";
+            Animal an = this.BuscarAnimal(codigoAnimal);
 
-            SqlParameter paramCodg = new SqlParameter("@CODIGOANIMAL", codigoAnimal);
+            if (an != null) {
 
-            this.context.Database.ExecuteSqlRaw(sql, paramCodg);
+                this.context.Animales.Remove(an);
+
+                Adopciones adop = this.BuscarAdopcion(codigoAnimal);
+
+                this.context.Adopciones.Remove(adop);
+            }
+
+            this.context.SaveChanges();
+
+
         }
     }
 }

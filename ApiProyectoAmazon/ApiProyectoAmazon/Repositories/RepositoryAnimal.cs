@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ApiProyectoAmazon.Models;
 using ApiProyectoAmazon.Data;
 
-namespace WebApiProyecto.Repositories
+namespace ApiProyectoAmazon.Repositories
 {
     public class RepositoryAnimal
     {
@@ -99,7 +99,6 @@ namespace WebApiProyecto.Repositories
 
         private int GetMaxCodigoComentario()
         {
-
             if (this.context.Comentarios.Count() == 0)
             {
 
@@ -109,6 +108,23 @@ namespace WebApiProyecto.Repositories
             {
 
                 var consulta = (from datos in this.context.Comentarios select datos.CodigoMensaje).Max();
+
+                int idCon = consulta + 1;
+
+                return idCon;
+            }
+        }
+
+        private int GetMaxIdFavorito()
+        {
+            if (this.context.Favoritos.Count() == 0)
+            {
+
+                return 1;
+            }
+            else
+            {
+                var consulta = (from datos in this.context.Favoritos select datos.CodigoFavorito).Max();
 
                 int idCon = consulta + 1;
 
@@ -140,14 +156,22 @@ namespace WebApiProyecto.Repositories
             return this.context.Comentarios.Where(x => x.CodigoMensaje == idComentario).FirstOrDefault();
         }
 
+        public Favoritos FindFavorito(int codigoAnimal,string dni)
+        {
+
+            return this.context.Favoritos.Where(x => x.CodigoAnimal== codigoAnimal && x.Dni == dni).FirstOrDefault();
+        }
+
         public Comentarios ModificarComentario(int idComentario, string mensaje)
         {
-            string sql = "MODIFICAR_COMENTARIO @ID_COMENTARIOP,@COMENTARIOP";
+            Comentarios com = this.FindComentario(idComentario);
 
-            SqlParameter paramId = new SqlParameter("@ID_COMENTARIOP", idComentario);
-            SqlParameter paramMensaje = new SqlParameter("@COMENTARIOP", mensaje);
+            if (com != null) {
 
-            this.context.Database.ExecuteSqlRaw(sql, paramId, paramMensaje);
+                com.Mensaje = mensaje;
+            }
+
+            this.context.SaveChanges();
 
             return this.context.Comentarios.Where(x=> x.CodigoMensaje == idComentario).SingleOrDefault();
         }
@@ -169,23 +193,26 @@ namespace WebApiProyecto.Repositories
 
         public void InsertarFavorito(int codigoAnimal, string dni)
         {
-            string sql = "INSERTAR_FAVORITO @ANIMAL_CODP,@DNIP";
+            Favoritos fav = new Favoritos
+            {
+                CodigoFavorito=GetMaxIdFavorito(),CodigoAnimal=codigoAnimal,Dni=dni
+            };
 
-            SqlParameter pamAnimal = new SqlParameter("@ANIMAL_CODP", codigoAnimal);
-            SqlParameter pamDni = new SqlParameter("@DNIP", dni);
+            this.context.Favoritos.Add(fav);
 
-            this.context.Database.ExecuteSqlRaw(sql, pamAnimal, pamDni);
+            this.context.SaveChanges();
         }
 
         public void EliminarFavorito(int codigoAnimal, string dni)
         {
+            Favoritos fav = this.FindFavorito(codigoAnimal, dni);
 
-            string sql = "ELIMINAR_FAVORITO @ANIMAL_CODP,@DNIP";
+            if (fav!= null) {
 
-            SqlParameter pamAnimal = new SqlParameter("@ANIMAL_CODP", codigoAnimal);
-            SqlParameter pamDni = new SqlParameter("@DNIP", dni);
+                this.context.Favoritos.Remove(fav);
+            }
 
-            this.context.Database.ExecuteSqlRaw(sql, pamAnimal, pamDni);
+            this.context.SaveChanges();
         }
     }
 }

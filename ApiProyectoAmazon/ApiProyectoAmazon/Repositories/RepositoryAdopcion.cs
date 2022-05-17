@@ -7,16 +7,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 
-namespace WebApiProyecto.Repositories
+namespace ApiProyectoAmazon.Repositories
 {
     public class RepositoryAdopcion
     {
         private AdoPetContext context;
-
-        public RepositoryAdopcion(AdoPetContext context)
+        private RepositoryInicio repoIni;
+        
+        public RepositoryAdopcion(AdoPetContext context, RepositoryInicio repoIni)
         {
 
             this.context = context;
+            this.repoIni = repoIni;
         }
 
         public List<Donacion> GetDonaciones(int codigoProtectora) {
@@ -24,16 +26,42 @@ namespace WebApiProyecto.Repositories
             return this.context.Donaciones.Where(x => x.CodigoProtectora == codigoProtectora).ToList();
         }
 
-        public void InsertarDonacion(int codigoProtectora, int cantidad, string dni)
+        private int GetMaxCodigoDonacion()
         {
 
-            string sql = "INSERTAR_DONACION @PROTECTORA,@DNI,@CANTIDAD";
+            if (this.context.Donaciones.Count() == 0)
+            {
 
-           SqlParameter paramPro = new SqlParameter("@PROTECTORA", codigoProtectora);
-           SqlParameter paramCan = new SqlParameter("@CANTIDAD", cantidad);
-           SqlParameter paramDni = new SqlParameter("@DNI", dni);
+                return 1;
+            }
+            else
+            {
 
-            this.context.Database.ExecuteSqlRaw(sql, paramPro, paramCan, paramDni);
+                var consulta = (from datos in this.context.Donaciones select datos.CodigoDonacion).Max();
+
+                int idAn = consulta + 1;
+
+                return idAn;
+            }
+        }
+        public void InsertarDonacion(int codigoProtectora, int cantidad, string dni)
+        {
+           Usuario usu= this.repoIni.BuscarUsuario(dni);
+
+            if (usu != null) {
+
+                Donacion don = new Donacion
+                {
+                    CodigoDonacion = GetMaxCodigoDonacion(),
+                    CodigoProtectora = codigoProtectora,
+                    Cantidad = cantidad,
+                    Dni=dni,
+                    ImagenDonante=usu.Imagen
+                };
+
+                this.context.Donaciones.Add(don);
+                this.context.SaveChanges();
+            }
         }
     }
 }

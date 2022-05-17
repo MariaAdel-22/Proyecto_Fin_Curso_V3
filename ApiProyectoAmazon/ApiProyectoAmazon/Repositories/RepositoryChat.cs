@@ -1,13 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using NuGetAdoPet.Models;
+using ApiProyectoAmazon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiProyecto.Data;
+using ApiProyectoAmazon.Data;
 
-namespace WebApiProyecto.Repositories
+namespace ApiProyectoAmazon.Repositories
 {
     public class RepositoryChat
     {
@@ -107,7 +107,7 @@ namespace WebApiProyecto.Repositories
         public Chats GetCodigoSalaPrincipal(string emisor, string receptor)
         {
 
-            string sql = "FIND_SALA @CODIGO_EMISOR,@CODIGO_RECEPTOR";
+            string sql = "FIND_SALA (@CODIGO_EMISOR,@CODIGO_RECEPTOR)";
 
             SqlParameter paramEmi = new SqlParameter("@CODIGO_EMISOR", emisor);
             SqlParameter paramRecep = new SqlParameter("@CODIGO_RECEPTOR", receptor);
@@ -124,7 +124,7 @@ namespace WebApiProyecto.Repositories
 
         public List<Chat> GetHistorialChat(int codigoSala)
         {
-            string sql = "GET_HISTORIAL_CHATS @CODIGOSALA";
+            string sql = "GET_HISTORIAL_CHATS (@CODIGOSALA)";
 
             SqlParameter pamCodSala = new SqlParameter("@CODIGOSALA", codigoSala);
 

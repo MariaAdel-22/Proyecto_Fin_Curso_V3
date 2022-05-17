@@ -1,13 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using NuGetAdoPet.Models;
+using ApiProyectoAmazon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApiProyecto.Data;
+using ApiProyectoAmazon.Data;
 
-namespace WebApiProyecto.Repositories
+
+namespace ApiProyectoAmazon.Repositories
 {
     public class RepositoryInicio
     {
@@ -71,20 +72,20 @@ namespace WebApiProyecto.Repositories
         public void InsertarUsuario(string Dni, string Nombre, string Apellidos,string Telefono,string Ciudad,string NombreUsuario,
             string Password,string Imagen)
         {
+            Usuario usu =new Usuario
+            {
+                Dni=Dni,
+                Nombre=Nombre,
+                Apellidos=Apellidos,
+                Telefono=Telefono,
+                Ciudad=Ciudad,
+                NombreUsuario=NombreUsuario,
+                Password=Password,
+                Imagen=Imagen
+            };
 
-            string sql = "INSERTAR_USUARIO @DNI,@NOMBRE,@APELLIDOS,@TELEFONO,@CIUDAD,@NOMBRE_USUARIO,@PASSWORD,@IMAGEN";
-
-            SqlParameter paramDni = new SqlParameter("@DNI", Dni);
-            SqlParameter paramNom = new SqlParameter("@NOMBRE", Nombre);
-            SqlParameter paramApel = new SqlParameter("@APELLIDOS", Apellidos);
-            SqlParameter paramTel = new SqlParameter("@TELEFONO", Telefono);
-
-            SqlParameter paramCiud = new SqlParameter("@CIUDAD", Ciudad);
-            SqlParameter paramNomUs = new SqlParameter("@NOMBRE_USUARIO", NombreUsuario);
-            SqlParameter paramPas = new SqlParameter("@PASSWORD", Password);
-            SqlParameter paramImag = new SqlParameter("@IMAGEN", Imagen);
-
-            this.context.Database.ExecuteSqlRaw(sql, paramDni, paramNom, paramApel, paramTel, paramCiud, paramNomUs, paramPas, paramImag);
+            this.context.Usuarios.Add(usu);
+            this.context.SaveChanges();
         }
 
         public void ModificarUsuario(string Dni, string Nombre, string Apellidos, string Telefono, string Ciudad, string NombreUsuario,
@@ -106,23 +107,40 @@ namespace WebApiProyecto.Repositories
             this.context.SaveChanges();
         }
 
+        private int GetMaxCodigoProtectora()
+        {
+            if (this.context.Protectoras.Count() == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                var consulta = (from datos in this.context.Protectoras select datos.IdProtectora).Max();
+
+                int idCon = consulta + 1;
+
+                return idCon;
+            }
+        }
+
         public void InsertarProtectora(string Nombre, string Direccion, string Ciudad, string Telefono, string Tarjeta,string Paypal,string Password,string Imagen)
         {
+            Protectora pro = new Protectora
+            {
+                IdProtectora=GetMaxCodigoProtectora(),
+                Nombre=Nombre,
+                Direccion=Direccion,
+                Ciudad=Ciudad,
+                Telefono=Telefono,
+                Tarjeta=Tarjeta,
+                Paypal=Paypal,
+                Password=Password,
+                Imagen=Imagen
+            };
 
-            string sql = "INSERTAR_PROTECTORA @NOMBRE,@DIRECCION,@CIUDAD,@TELEFONO,@TARJETA,@PAYPAL,@PASSWORD,@IMAGEN";
-
-            SqlParameter paramNom = new SqlParameter("@NOMBRE", Nombre);
-            SqlParameter paramDirec = new SqlParameter("@DIRECCION", Direccion);
-            SqlParameter paramCiu = new SqlParameter("@CIUDAD", Ciudad);
-            SqlParameter paramTel = new SqlParameter("@TELEFONO", Telefono);
-
-            SqlParameter paramTar = new SqlParameter("@TARJETA", Tarjeta);
-            SqlParameter paramPay = new SqlParameter("@PAYPAL", Paypal);
-            SqlParameter paramPas = new SqlParameter("@PASSWORD",Password);
-            SqlParameter paramImag = new SqlParameter("@IMAGEN", Imagen);
-
-            this.context.Database.ExecuteSqlRaw(sql, paramNom, paramDirec, paramCiu, paramTel, paramTar, paramPay, paramPas, paramImag);
-        }
+            this.context.Protectoras.Add(pro);
+            this.context.SaveChanges();
+          }
 
         public void ModificarProtectora(int id, string Nombre, string Direccion, string Ciudad, string Telefono, string Tarjeta, string Paypal, string Password, string Imagen) {
 
@@ -157,7 +175,5 @@ namespace WebApiProyecto.Repositories
         {
             return this.context.Usuarios.Count();
         }
-
-
     }
 }
