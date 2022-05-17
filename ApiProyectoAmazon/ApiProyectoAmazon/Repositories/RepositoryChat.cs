@@ -134,7 +134,7 @@ namespace ApiProyectoAmazon.Repositories
 
         public void InsertarMensajeChat(int idSala, string emisor, string receptor, string mensaje)
         {
-            string sql = "INSERTAR_MENSAJE_CHAT @CHATS_COD,@CODIGO_EMISOR,@CODIGO_RECEPTOR,@MENSAJE";
+            string sql = "INSERTAR_MENSAJE_CHAT (@CHATS_COD,@CODIGO_EMISOR,@CODIGO_RECEPTOR,@MENSAJE)";
 
             SqlParameter pamCodSala = new SqlParameter("@CHATS_COD", idSala);
             SqlParameter pamEmi = new SqlParameter("@CODIGO_EMISOR", emisor);

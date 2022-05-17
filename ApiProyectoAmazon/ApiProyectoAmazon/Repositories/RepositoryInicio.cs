@@ -24,7 +24,7 @@ namespace ApiProyectoAmazon.Repositories
 
         public VistaCuentas BuscarCuenta(string nombre, string psswd) {
 
-            VistaCuentas cuenta = this.context.Cuentas.Where(x => x.Nombre == nombre && x.Password == psswd).FirstOrDefault();
+            VistaCuentas cuenta = this.context.Cuentas.FirstOrDefault(x => x.Nombre == nombre && x.Password == psswd);
 
             return cuenta;
         }
@@ -66,7 +66,7 @@ namespace ApiProyectoAmazon.Repositories
 
         public Usuario BuscarUsuario(string dni) {
 
-            return this.context.Usuarios.Where(x => x.Dni == dni).FirstOrDefault();
+            return this.context.Usuarios.FirstOrDefault(x => x.Dni == dni);
         }
 
         public void InsertarUsuario(string Dni, string Nombre, string Apellidos,string Telefono,string Ciudad,string NombreUsuario,
