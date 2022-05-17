@@ -1,0 +1,276 @@
+﻿@model VistaCuentas
+
+@section titulo{ Animales de Protectora }
+
+@{
+    Layout = "_PlantillaInicio";
+
+    List<Animal> Animales = ViewBag.Animales as List<Animal>;
+}
+
+@if (Model.protectora != null)
+{
+
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="btn LetraMenu">Notificaciones</a>
+            </div>
+        </div>
+    </div>
+
+}
+<div class="container listadoProt row flex-row" id="listAnimales">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-4 mt-md-3 mt-sm-1" style="padding-bottom: 10vh;">
+
+        <div class="row flex-row">
+
+            @if (Animales != null)
+            {
+
+                foreach (Animal an in Animales)
+                {
+
+                    <div class="col-lg-4 col-md-4 col-sm-6" style="width: 248px; height: 220px;">
+                        <div class="content">
+                            <div class="content-overlay"></div>
+                            <img class="content-image" src="https://bucket-proyecto.s3.amazonaws.com/Animales/@an.Imagen">
+                            <a asp-controller="Animal" asp-action="PerfilAnimalProtectora" asp-route-idAnimal="@an.CodigoAnimal" class="content-details fadeIn-bottom">
+                                <h3 class="content-title">@an.Nombre</h3>
+                                <p class="content-text">@an.Edad</p>
+                            </a>
+                        </div>
+                        <div class="mt-2">
+                            <a asp-controller="Protectora" asp-action="ModificarAnimal" asp-route-idAnimal="@an.CodigoAnimal"><span class="IconFav" id="anim1"><i class="fa fa-pencil-square"></i></span></a>
+
+                            <span id="eliminarAnimal" data-toggle="modal" data-target="#showmodalDeleteAnimal" class="IconFav"><i id="@an.CodigoAnimal" class="fa fa-trash"></i></span>
+                        </div>
+                    </div>
+                }
+            }
+            else { 
+            
+                <h1 class="LabelDisen">No se han insertado animales aún.</h1> 
+            }
+        </div>
+    </div>
+</div>
+
+    <div class="container contIcon flex-row" id="contIcon">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top: 1em; padding-bottom: 1em;">
+            <span class="IconInsert" id="insertIcon"><i class="fa fa-plus-square" style="width: 1.5em;"></i></span>
+        </div>
+    </div>
+
+    <!--Insertar Animal-->
+
+    <div class="container AnimCont row flex-lg-row" id="contAnimal" hidden>
+        <div class="row flex-row">
+            <div class="col-lg-3 col-md-5 col-sm-6 mt-4 titR">
+                <h3 class="LabelDisen">Registrar Animal</h3>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
+
+                    <img src="~/img/ImagenParaBorrar.jpg" class="imgFicha" id="ImagAnim" style="width: 248px; height: 220px;">
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" style="z-index:1;position:relative;top:-6%;">
+
+                    <i class="fa fa-plus-square-o IconFicha" id="iconPlus"></i>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12" id="IconAn" style="position: relative; top: -45px;">
+
+                    <input type="file" name="imagenAnimal" id="InsertAnim" />
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row flex-lg-row" style="display: flex; justify-content: center;">
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="nombre" class="form-label mb-2 LabelDisen">Nombre del animal:</label>
+                        <input type="text" class="form-control InputDisen" id="nombre" placeholder="Introduzca un nombre" name="nombre">
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="edad" class="form-label mb-2 LabelDisen">Edad:</label>
+                        <input type="text" class="form-control InputDisen" id="edad" placeholder="Introduzca una edad" name="edad">
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="genero" class="form-label mb-2 LabelDisen">Género:</label>
+                        <select type="text" class="form-control InputDisen" id="genero" name="genero">
+                            <option value="No" selected>--SELECCIONA UN GENERO--</option>
+                            <option value="M">Macho</option>
+                            <option value="F">Hembra</option>
+                            <option value="H">Hermafrodita</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="peso" class="form-label mb-2 LabelDisen">Peso:</label>
+                        <input type="text" class="form-control InputDisen" id="peso" placeholder="Introduzca un peso" name="peso">
+                    </div>
+
+                    <div class="col-lg-10 col-md-10 col-sm-12">
+                        <label for="especie" class="form-label mb-2 LabelDisen">Especie:</label>
+                        <input type="text" class="form-control InputDisen" id="especie" placeholder="Introduzca una especie" name="especie">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-8" style="display: flex; justify-content: flex-end;">
+                        <button type="submit" asp-route-idP="@Model.protectora.IdProtectora" class="btn btn-outline-success mt-3 BotonDisen" id="registrar">Insertar</button>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-8" style="display: flex; justify-content: flex-start;">
+                        <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn btn-outline-success mt-3 BotonDisen" id="volverListado">Volver al listado</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+
+
+    @section codigoInicio{
+
+        <script>
+        $(document).ready(function () {
+
+            $('body').on('click', '#eliminarAnimal', function () {
+
+                var idAnimal = $(this).children().attr("id");
+                $("#contenedorModalDeleteAnimal").load("/Protectora/_ModalEliminarAnimal?idAnimal=" + idAnimal);
+            });
+
+            $('body').on('click', '#EliminarAn', function () {
+
+                var url = "@Url.Action("EliminarAnimal","Protectora")";
+                var idAnimal = $(this).parent().attr("id");
+
+                var data = { idAnimal: idAnimal };
+
+                $.post(url, data).done(function (data) {
+
+                    console.log("Funciona");
+
+                    if(data.result == 'Redirect')
+                      window.location = data.url;
+                });
+
+            });
+
+            $("#insertIcon").click(function () {
+
+                var attr = $("#listAnimales").attr('hidden');
+
+                if (typeof attr !== typeof undefined && attr !== false) {
+
+                    $("#listAnimales").removeAttr("hidden");
+                    $("#contIcon").removeAttr("hidden");
+                    $("#contAnimal").attr("hidden", true);
+                } else {
+                    $("#listAnimales").attr("hidden", true);
+                    $("#contIcon").attr("hidden", true);
+                    $("#contAnimal").removeAttr("hidden");
+                }
+            });
+
+            $(document).on('change', '#InsertAnim', function (e) {
+
+                var TmpPath = URL.createObjectURL(e.target.files[0]);
+                $("#ImagAnim").attr("src", TmpPath);
+            });
+
+            $("#registrar").click(function () {
+
+                $("#listAnimales").removeAttr("hidden");
+                $("#contIcon").removeAttr("hidden");
+                $("#contAnimal").attr("hidden", true);
+
+            });
+
+            $("#volverListado").click(function () {
+
+                $("#listAnimales").removeAttr("hidden");
+                $("#contIcon").removeAttr("hidden");
+                $("#contAnimal").attr("hidden", true);
+            });
+
+            if ($(this).hasClass("IconFav") == true) {
+
+                if ($(this).children().hasClass("fa fa-pencil-square") == true) {
+
+                    $("#contModif").removeAttr("hidden");
+
+                    $("#listAnimales").attr("hidden", true);
+                    $("#contIcon").attr("hidden", true);
+                    $("#contAnimal").attr("hidden", true);
+
+                }
+
+            }
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+    });
+        </script>
+    }
+
+
+    <!--MODAL ELIMINAR ANIMAL-->
+    <div id="showmodalDeleteAnimal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="contenedorModalDeleteAnimal">
+
+            </div>
+        </div>
+    </div>

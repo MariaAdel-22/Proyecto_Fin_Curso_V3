@@ -1,0 +1,100 @@
+﻿<nav class="navbar navbar-expand-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-5" href="#">
+            <img src="~/img/logo_basico_trazo.png" style="width:160px; height:90px;" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <form class="d-flex me-5">
+                <a href="#" id="Icono"><i class="fa fa-cog" aria-hidden="true" style="cursor: pointer;" id="Op"></i></a>
+            </form>
+        </div>
+        @{
+
+            VistaCuentas Cuenta = JsonConvert.DeserializeObject<VistaCuentas>(Context.User.FindFirst("Cuenta").Value);
+
+        }
+        @if (Cuenta.usuario != null)
+        {
+
+            <!--MENU USUARIO-->
+            <div id="mySidenav1" class="sidenav col-lg-12 col-md-12 col-sm-12 sideMenuUsario">
+                <div class="row flex-row" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="col-12">
+                        <a href="javascript:void(0)" class="closebtn" id="Cl1">&times;</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12 mt-1">
+
+                        <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@Cuenta.usuario.Imagen" class="imgRegistro">
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-8 col-sm-12 mt-2">
+                        <h4 class="LabelDisen" style="text-align:center">@Cuenta.usuario.Nombre</h4>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12 bordeInicial">
+                        <a asp-controller="Inicio" asp-action="PaginaPrincipal">Inicio</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12">
+                        <a asp-controller="Cuenta" asp-action="SesionesChat" asp-route-codigoE="@Cuenta.usuario.Dni">Chats</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12">
+                        <a asp-controller="Cuenta" asp-action="ModificarDatosCuenta">Modificar datos de la cuenta</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12">
+                        <a asp-controller="Inicio" asp-action="CerrarSesion">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+        @if (Cuenta.protectora != null)
+        {
+            <!--MENU PROTECTORA-->
+            <div id="mySidenav2" class="sidenav col-lg-12 col-md-12 col-sm-12 sideMenuProtectora">
+                <div class="row flex-row" style="display: flex; justify-content: center; align-items: center;">
+                    <div class="col-12">
+                        <a href="javascript:void(0)" class="closebtn" id="Cl2">&times;</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12 mt-5">
+
+                        <img src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@Cuenta.protectora.Imagen" class="imgRegistro">
+
+                    </div>
+                    <div class="col-lg-6 col-md-8 col-sm-12 mt-2">
+                        <h4 class="LabelDisen" style="text-align:center">@Cuenta.protectora.Nombre</h4>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12 bordeInicial">
+                        <a asp-controller="Inicio" asp-action="PaginaPrincipal">Inicio</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12">
+                        <a asp-controller="Cuenta" asp-action="SesionesChat" asp-route-codigoE="@Cuenta.protectora.IdProtectora.ToString()">Chats</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12">
+                        <a asp-controller="Cuenta" asp-action="ModificarDatosCuenta">Modificar datos de la cuenta</a>
+                    </div>
+
+                    <div class="col-lg-8 col-md-10 col-sm-12">
+                        <a asp-controller="Inicio" asp-action="CerrarSesion">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</nav>

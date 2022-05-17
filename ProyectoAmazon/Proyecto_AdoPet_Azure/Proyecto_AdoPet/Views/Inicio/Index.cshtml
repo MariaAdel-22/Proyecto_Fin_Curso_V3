@@ -1,0 +1,41 @@
+﻿@section titulo{ Index }
+
+<div class="col-11 col-md-6 col-lg-4 col-xxl-4  container contLogin">
+    <div class="row flex-lg-row pLogin">
+        <div class="col-10 my-4">
+            <form class="FLogin" method="post" id="formLogin">
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <label for="usuario" class="form-label mb-2 LabelDisen">Nombre de Usuario</label>
+                    <input type="text" class="form-control InputDisen" id="usuarioLogin" placeholder="Introduzca un usuario" name="nombre">
+                </div>
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <label for="pwd" class="form-label mb-2 LabelDisen">Password</label>
+                    <input type="password" class="form-control InputDisen" id="pwdLogin" placeholder="Introduzca una contraseña" name="psswd">
+                </div>
+                <p style="color:darkred">@ViewData["MENSAJE"]</p>
+                <div class="col-lg-8 col-md-8 col-sm-9 col-11 btnLogin">
+                    <button type="submit" class="btn btn-outline-success mt-3 BotonDisen" style="width:100%;">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section codigoLogin{ 
+
+    <script>
+
+    $(document).ready(function () {
+
+        $("#botonRegistroLogin").click(function () {
+
+            
+            $(this).text("Registrarse");
+            window.location = "Inicio/Registro";
+            
+        });
+
+    });
+    </script>
+
+}

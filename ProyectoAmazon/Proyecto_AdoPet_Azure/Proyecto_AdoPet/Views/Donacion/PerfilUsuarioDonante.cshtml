@@ -1,0 +1,109 @@
+﻿@model Usuario
+
+@{
+
+    Layout = "_PlantillaInicio";
+
+    VistaCuentas cuenta = ViewBag.Cuenta;
+}
+
+<div class="container row flex-lg-row contenedorAnimal">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
+
+            <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@Model.Imagen" class="imgFicha">
+
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row flex-row">
+                <div class="col-lg-12 col-md-12 col-sm-6 mt-2" style="display:flex;justify-content:center;">
+
+                    @if (cuenta.protectora != null)
+                    {
+
+                        <a asp-controller="Cuenta" asp-action="SesionesChat" asp-route-codigoE="@cuenta.protectora.IdProtectora.ToString()" asp-route-codigoR="@Model.Dni" class="IconChat"><i class="fa fa-comments" aria-hidden="true"></i></a>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12" style="position:relative;top:4%;">
+
+            <form method="post">
+                <div class="row flex-lg-row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="nombre" class="form-label mb-2 LabelDisen">Nombre</label>
+                        <input type="text" class="form-control InputAnim" style="text-align: center;" id="nombre" name="nombre" value="@Model.NombreUsuario" readonly>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad</label>
+                        <input type="text" class="form-control InputAnim" style="text-align: center;" id="ciudad" name="ciudad" value="@Model.Ciudad" readonly>
+                    </div>
+
+                    <div class="col-lg-12 col-md-10 col-sm-12">
+                        <label for="telefono" class="form-label mb-2 LabelDisen">Telefono</label>
+                        <input type="text" class="form-control InputAnim" style="text-align: center;" id="telefono" name="telefono" value="@Model.Telefono" readonly>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 posBoton">
+
+            @if (cuenta.protectora != null)
+            {
+
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="botonFichaAnimal">Volver al historial</a>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section codigoInicio{
+
+    <script>
+
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+
+    </script>
+}

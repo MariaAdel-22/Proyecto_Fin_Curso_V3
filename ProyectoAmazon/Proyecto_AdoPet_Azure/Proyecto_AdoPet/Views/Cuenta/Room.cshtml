@@ -1,0 +1,248 @@
+﻿
+@{
+    Chats sala = ViewData["Sala"] as Chats;
+    VistaCuentas cuenta = ViewData["Cuenta"] as VistaCuentas;
+    List<Chat> HistorialChatMensajes = ViewData["HistorialChat"] as List<Chat>;
+
+    Protectora protect;
+
+    if (ViewData["Protectora"] != null)
+    {
+
+        protect = ViewData["Protectora"] as Protectora;
+    }
+    else {
+        protect = null;
+    }
+
+    Usuario usu = new Usuario();
+
+    if (ViewData["Usuario"] != null)
+    {
+
+        usu = ViewData["Usuario"] as Usuario;
+    }
+    else {
+        usu = null;
+    }
+
+}
+
+@if (protect.IdProtectora != 0)
+{
+
+<div class="py-2 px-4 border-bottom d-none d-lg-block">
+    <div class="d-flex align-items-center py-1">
+        <div class="position-relative">
+            <img src="https://storageproyectoadopet.blob.core.windows.net/protectoras/@protect.Imagen" id="imagenChat" class="rounded-circle mr-1" alt="@protect.Nombre" width="40" height="40">
+        </div>
+        <div class="flex-grow-1 pl-3" id="@protect.IdProtectora">
+            <strong class="NombreChat" id="nomchat">@protect.Nombre</strong>
+        </div>
+    </div>
+
+    <div class="position-relative">
+        <div class="chat-messages p-4 row flex-row" id="messages">
+
+            @if (HistorialChatMensajes.Count > 0)
+            {
+
+                foreach (Chat chat in HistorialChatMensajes)
+                {
+
+                    if (chat.CodigoDeCuenta == cuenta.CodigoCuenta && chat.CodigoPersonaEnviado == protect.IdProtectora.ToString())
+                    {
+
+                        <div class="chat-message-right pb-4">
+                            <div>
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                    <div class="font-weight-bold mb-1 LetraTextChat">Tu</div>@chat.Mensaje
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else if (chat.CodigoDeCuenta == protect.IdProtectora.ToString() && chat.CodigoPersonaEnviado == cuenta.CodigoCuenta)
+                    {
+
+                        <div class="chat-message-left pb-4">
+                            <div>
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                    <div class="font-weight-bold mb-1 LetraTextChat" id="chatReceptor">@protect.Nombre</div>@chat.Mensaje
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                }
+            }
+            else
+            {
+
+                <h4 class="LabelDisen" id="mensajVacio">Aún no hay mensajes en este chat...</h4>
+            }
+
+        </div>
+    </div>
+
+    <div class="flex-grow-0 py-3 px-4 border-top">
+        <div class="input-group">
+            <input type="text" id="cuenta" value="@protect.IdProtectora" hidden />
+            <input type="text" id="sala" value="@sala.CodigoChat" hidden />
+            <input type="text" id="user" value="@cuenta.CodigoCuenta" hidden />
+
+            <input type="text" class="form-control" id="message" placeholder="Escribe aqui...">
+            <button type="button" class="btn botonChat" id="btnSend">Enviar</button>
+        </div>
+    </div>
+</div>
+
+}
+
+@if (usu.Dni != null)
+{
+
+    <div class="py-2 px-4 border-bottom d-none d-lg-block">
+        <div class="d-flex align-items-center py-1">
+            <div class="position-relative">
+                <img src="https://storageproyectoadopet.blob.core.windows.net/usuarios/@usu.Imagen" id="imagenChat" class="rounded-circle mr-1" alt="@usu.Nombre" width="40" height="40">
+            </div>
+            <div class="flex-grow-1 pl-3" id="@usu.Dni">
+                <strong class="NombreChat" id="nomchat">@usu.NombreUsuario</strong>
+            </div>
+        </div>
+
+        <div class="position-relative">
+            <div class="chat-messages p-4 row flex-row" id="messages">
+
+                @if (HistorialChatMensajes.Count > 0)
+                {
+
+                    foreach (Chat chat in HistorialChatMensajes)
+                    {
+
+                        if (chat.CodigoDeCuenta == cuenta.CodigoCuenta && chat.CodigoPersonaEnviado == usu.Dni)
+                        {
+
+                            <div class="chat-message-right pb-4">
+                                <div>
+                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                        <div class="font-weight-bold mb-1 LetraTextChat">Tu</div>@chat.Mensaje
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        else if (chat.CodigoDeCuenta == usu.Dni && chat.CodigoPersonaEnviado == cuenta.CodigoCuenta)
+                        {
+
+                            <div class="chat-message-left pb-4">
+                                <div>
+                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                        <div class="font-weight-bold mb-1 LetraTextChat" id="chatReceptor">@usu.NombreUsuario</div>@chat.Mensaje
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    }
+                }
+                else
+                {
+
+                    <h4 class="LabelDisen" id="mensajVacio">Aún no hay mensajes en este chat...</h4>
+                }
+
+            </div>
+        </div>
+
+        <div class="flex-grow-0 py-3 px-4 border-top">
+            <div class="input-group">
+                <input type="text" id="cuenta" value="@usu.Dni" hidden />
+                <input type="text" id="sala" value="@sala.CodigoChat" hidden />
+                <input type="text" id="user" value="@cuenta.CodigoCuenta" hidden />
+
+                <input type="text" class="form-control" id="message" placeholder="Escribe aqui...">
+                <button type="button" class="btn botonChat" id="btnSend">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+<script>
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
+
+    connection.start().then(() => {
+
+        let sala = document.getElementById("sala").value;
+        connection.invoke("AddToGroup", sala);
+    }).catch((e)=>console.error(e));
+
+    
+    document.getElementById("btnSend").addEventListener("click", (event) => {
+
+        $("#mensajVacio").attr('hidden', true);
+
+        let room = document.getElementById("sala").value;
+
+        let user=document.getElementById("user").value;
+        let message = document.getElementById("message").value;
+
+        connection.invoke("SendMessage", room, user, message).catch((err) => console.error(err.toString()));
+
+        event.preventDefault();
+
+        //AJAX para guardar el mensaje en la BBDD
+
+        var url = "@Url.Action("InsertarComentario","Cuenta")";
+        var usuario = document.getElementById("user").value;
+        var receptor = document.getElementById("cuenta").value;
+        var mensaje = document.getElementById("message").value;
+        var sala = document.getElementById("sala").value;
+
+        var data = { idSala: sala, emisor: usuario, receptor: receptor.toString(), mensaje: mensaje };
+
+        $.post(url, data).done(function (data) {
+
+            console.log(data);
+        });
+
+        document.getElementById("message").value = "";
+        document.getElementById("message").focus();
+        document.getElementById("mensajVacio").getAttribute("hidden",true);
+    });
+
+    connection.on("ReceiveMessage", (user, message) => {
+
+        let usuario = document.getElementById("cuenta").value;
+        let nombreReceptor = $("#nomchat").text();
+
+        if (user != usuario) {
+
+            var message = '<div class="chat-message-right pb-4"><div><div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3"><div class="font-weight-bold mb-1 LetraTextChat">Tu</div>' + message + '</div></div></div>';
+            //var mes = message + document.getElementById("messages").innerHTML;
+           //$("#messages").html(mes);
+
+            var mes = message;
+            $("#messages").append(mes);
+
+        } else {
+
+            var message = '<div class="chat-message-left pb-4"><div><div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3"><div class="font-weight-bold mb-1 LetraTextChat">' + nombreReceptor + '</div>' + message + '</div></div></div>';
+       
+            //var mes = message + document.getElementById("messages").innerHTML;
+            //$("#messages").html(mes);
+
+            var mes = message;
+            $("#messages").append(mes);
+        }
+    });
+
+</script>

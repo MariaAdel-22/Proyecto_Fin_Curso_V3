@@ -1,0 +1,128 @@
+﻿@model VistaCuentas
+
+@section titulo{ Protectoras }
+
+@{
+    //Layout = "_PlantillaListadoAnimales";
+    Layout = "_PlantillaInicio";
+
+    List<Protectora> protectoras = ViewData["Protectoras"] as List<Protectora>;
+    List<int> Cantidades = ViewData["Cantidades"] as List<int>;
+
+}
+
+@if (Model.usuario != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Animal" asp-action="AnimalesProtectoras" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="Donaciones" class="btn LetraMenu">Hacer una Donación</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (Model.protectora != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="btn LetraMenu">Notificaciones</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="container listadoProt row flex-row col-lg-9 col-md-10 col-sm-10 col-12">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-4 mt-md-3 mt-sm-1">
+
+        <div class="row flex-row">
+            @if (protectoras != null)
+            {
+                for (int i = 0; i < protectoras.Count(); i++)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-3" style="width: 248px; height: 220px;">
+                        <div class="content">
+                            <div class="content-overlay"></div>
+                            <img class="content-image" src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@protectoras[i].Imagen">
+                            <a asp-controller="Protectora" asp-action="FichaProtectora" asp-route-id="@protectoras[i].IdProtectora" class="content-details fadeIn-bottom">
+                                <h3 class="content-title">@protectoras[i].Nombre</h3>
+                                <p class="content-text">Nº de Animales: @Cantidades[i]</p>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+    </div>
+</div>
+
+@section codigoInicio{
+
+    <script>
+
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+
+    </script>
+}

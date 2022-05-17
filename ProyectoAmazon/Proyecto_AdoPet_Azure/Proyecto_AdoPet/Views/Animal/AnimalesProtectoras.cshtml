@@ -1,0 +1,189 @@
+﻿@model List<VistaAnimales>
+
+@{
+    Layout = "_PlantillaInicio";
+
+    string ciudad = ViewBag.Ciudad;
+
+    List<string> Edades = ViewData["Edad"] as List<string>;
+
+    List<string> Especies = ViewData["Especie"] as List<string>;
+
+    List<string> Tams = ViewData["Tam"] as List<string>;
+
+    VistaCuentas cuenta = ViewBag.Cuenta as VistaCuentas;
+}
+
+
+@if (cuenta.usuario != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Animal" asp-action="AnimalesProtectoras" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="Donaciones" class="btn LetraMenu">Hacer una Donación</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (cuenta.protectora != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="btn LetraMenu">Notificaciones</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="container filtroCon row flex-row">
+    <div class="col-lg-12 col-md-11 col-sm-12 col-12">
+        <form method="post" class="col-lg-12 col-md-12 row flex-row mb-3" style="display: flex; justify-content: center; align-items: center;">
+            <div class="col-lg-3 col-md-10 col-sm-12 col-12">
+                <label for="tam" class="LabelDisen">Tamaño:</label>
+
+                <select id="tamAnimal" name="tam" class="form-select">
+                    <option value="TODOS">Todos</option>
+
+                    @foreach (string tam in Tams)
+                    {
+
+                        <option value="@tam">@tam</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-lg-3 col-md-10 col-sm-12 col-12">
+
+                <label for="esp" class="LabelDisen">Especie:</label>
+
+                <select id="espAnimal" name="especie" class="form-select">
+                    <option value="TODOS">Todos</option>
+
+                    @foreach (string especie in Especies)
+                    {
+
+                        <option value="@especie">@especie</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-lg-3 col-md-10 col-sm-12 col-12">
+
+                <label for="edad" class="LabelDisen">Edad:</label>
+
+                <select id="espAnimal" name="edad" class="form-select">
+                    <option value="TODOS">Todos</option>
+
+                    @foreach (string edad in Edades)
+                    {
+
+                        <option value="@edad">@edad</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-lg-3 col-md-10 col-sm-12 col-12 btn btn-success BotonFiltro">
+                <button type="submit" class="btn btn-success">Filtrar</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@if (Model != null)
+{
+
+    <div class="container listadoCon row flex-row col-lg-9 col-md-10 col-sm-10 col-12">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-4 mt-md-3 mt-sm-1">
+
+            <div class="row flex-row">
+
+                @foreach (VistaAnimales an in Model)
+                {
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-3" style="width: 248px; height: 220px;">
+                        <div class="content">
+                            <div class="content-overlay"></div>
+                            <img class="content-image" src="https://bucket-proyecto.s3.amazonaws.com/Animales/@an.Imagen">
+                            <a asp-controller="Animal" asp-action="PerfilAnimalProtectora" asp-route-idAnimal="@an.IdAnimal" class="content-details fadeIn-bottom">
+                                <h3 class="content-title">@an.Nombre</h3>
+                                <p class="content-text">@an.Edad</p>
+                            </a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@section codigoInicio{
+
+    <script>
+
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+
+    </script>
+}

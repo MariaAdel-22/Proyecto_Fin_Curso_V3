@@ -1,0 +1,949 @@
+.body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/*Animales Cards*/
+
+
+@media screen and (max-height: 1535px) {
+
+    .contenedorAnimal {
+        
+        height:79%;
+    }
+}
+
+@media screen and (max-height: 1178px) {
+    #imgLogo {
+        width:72%;
+    }
+}
+
+@media screen and (max-height: 1280px) {
+
+    #imgLogo {
+    
+        width:56% !important; 
+    
+    }
+}
+
+@media screen and (max-height: 964px) {
+
+    #imgLogo {
+        
+        width:93%;
+    }
+}
+
+
+@media screen and (max-height: 675px) {
+
+    #imgLogo {
+        
+        width:131%;
+    }
+}
+
+
+@media screen and (max-height: 624px) {
+
+    .contenedorAnimal {
+        
+        height:102%;
+    }
+}
+
+    .content {
+        position: relative;
+        width: 90%;
+        height: 100%;
+        max-width: 400px;
+        margin: auto;
+        overflow: hidden;
+        border-radius: 1em;
+        border-style: solid;
+        border-width: medium;
+        border-color: #309458;
+    }
+
+        .content .content-overlay {
+            background: rgba(0,0,0,0.7);
+            position: absolute;
+            height: 99%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            -webkit-transition: all 0.4s ease-in-out 0s;
+            -moz-transition: all 0.4s ease-in-out 0s;
+            transition: all 0.4s ease-in-out 0s;
+        }
+
+        .content:hover .content-overlay {
+            opacity: 1;
+        }
+
+    .content-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .content-details {
+        position: absolute;
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        text-decoration: none;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        -moz-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    .content:hover .content-details {
+        top: 50%;
+        left: 50%;
+        opacity: 1;
+    }
+
+    .content-details h3 {
+        color: #fff;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.5em;
+        text-transform: uppercase;
+    }
+
+    .content-details p {
+        color: #fff;
+        font-size: 0.8em;
+    }
+
+    .fadeIn-bottom {
+        top: 80%;
+    }
+
+    /*Perfiles animal*/
+
+span.IconoCor {
+    color: #309458;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 41px;
+    background: #ffffff;
+    border-radius: 50%;
+    border-style: double;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.IconChat {
+    color: #309458;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 41px;
+    background: #ffffff;
+    border-radius: 50%;
+    border-style: double;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+        .IconChat:hover {
+            color: #309458;
+            box-shadow: inset 0 0 1px #309458;
+        }
+
+        .IconChat:before {
+            content: '';
+            transition: .5s;
+            transform: scale(.9);
+        }
+
+        .IconChat:hover:before {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #72d393;
+        }
+
+        .IconChat:hover {
+            color: #72d393;
+            box-shadow: 0 0 5px #72d393;
+            text-shadow: 0 0 5px #72d393;
+        }
+
+
+    span.IconoCor:hover {
+        box-shadow: inset 0 0 1px #309458;
+    }
+
+    span.IconoCor:before {
+        content: '';
+        transition: .5s;
+        transform: scale(.9);
+    }
+
+    span.IconoCor:hover:before {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px #72d393;
+    }
+
+    span.IconoCor:hover {
+        color: #72d393;
+        box-shadow: 0 0 5px #72d393;
+        text-shadow: 0 0 5px #72d393;
+    }
+
+.InputAnim {
+
+    background-color: #5dbe7f !important;
+    border-radius: 1em;
+    border-style: solid;
+    border-color: #309458;
+    border-width: initial;
+    color: #DCF4E4;
+    font-weight: unset;
+    font-size: x-large;
+}
+
+.contenedorAnimal {
+    position: relative;
+    left:13%;
+    top: 14% !important;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    height: 95%;
+    width: 78%;
+}
+
+.posBoton {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 10px;
+}
+
+    .botonFichaAnimal {
+        color: #309458;
+        background-color: #72d393;
+        border-radius: 1em;
+        border-style: solid;
+        font-weight: bolder;
+        width: 25%;
+        text-decoration: none;
+        /*Separamos el botón*/
+        margin-block:30px;
+    }
+
+        .botonFichaAnimal:hover {
+            background-color: #309458;
+            color: #72d393;
+        }
+
+#InsertAnim {
+    color: #309458;
+    position: relative;
+    width: 6%;
+    height: 5%;
+    text-align: center;
+    line-height: 46px;
+    background: #5dbe7f;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 2;
+    opacity:0;
+}
+
+/*Caja de comentarios*/
+.contenedorComentarios {
+    position: relative;
+    top: 103% !important;
+    left: 9%;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    width: 88%;
+}
+
+.form_comentarios textarea {
+    width: 100%;
+    height: 84px;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 84px;
+    max-height: 300px;
+    padding: 10px;
+    line-height: 30px;
+    border: 1px solid #DCF4E4;
+    margin-bottom: 20px;
+}
+
+.butnDisen {
+    background-color: #309458;
+    margin-bottom: 20px;
+    border-style: solid;
+    border-radius: 1em;
+    border-color: #DCF4E4;
+    color: #DCF4E4;
+}
+
+        .butnDisen:hover {
+            box-shadow: 0px 0px 9px rgba(114,211,147,.35);
+        }
+
+    .media {
+        display: flex;
+    }
+
+    .nombre {
+        position: relative;
+        text-align: start;
+    }
+
+        .nombre span {
+            font-size: 12px;
+            color: #464646;
+            margin-left: 10px;
+        }
+
+    .comentario {
+        margin-top: 10px;
+    }
+
+    .botones {
+        display: flex;
+        justify-content: end;
+    }
+
+        .botones a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #72d393;
+        }
+
+    .comentario {
+        margin-top: 10px;
+    }
+
+    .botones {
+        margin-bottom: 10px;
+    }
+
+        .botones a {
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+.colorCaja {
+    background-color: rgba(48,148,88,0.5);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    margin-bottom: 7%;
+}
+
+    .titDin {
+        color: #72d393;
+        text-shadow: -2px -2px 1px #309458, 2px 2px 1px #309458, -2px 2px 1px #309458, 2px -2px 1px #309458;
+    }
+
+.listadoProt {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #72d393;
+    text-align: center;
+    justify-content: center;
+}
+
+    /*Chat*/
+
+    .botonChat {
+        color: #309458;
+        background-color: #72d393;
+        border-radius: 1em;
+        border-style: solid;
+        width: 16%;
+        font-weight: bolder;
+        position: relative;
+    }
+
+    .NombreChat {
+        color: #309458;
+        font-size: large;
+    }
+
+    .contenedorCard {
+        position: relative;
+        width: 85%;
+        margin: auto;
+        overflow: hidden;
+        border-radius: 1em;
+        border-style: solid;
+        border-width: medium;
+        border-color: #ffffff;
+    }
+
+    .carChat {
+        background-color: rgba(114,211,147,0.7) !important;
+        border-style: solid !important;
+        border-width: thin !important;
+        border-color: #309458 !important;
+        border-radius: 0.25rem !important;
+    }
+
+    .borLateral {
+        background-color: rgba(48,148,88,0.5);
+        border-right-style: solid;
+        border-right-width: thin;
+        border-right-color: #72d393;
+    }
+
+    .chat-online {
+        color: #34ce57
+    }
+
+    .chat-offline {
+        color: #e4606d
+    }
+
+    .chat-messages {
+        display: flex;
+        flex-direction: column;
+        max-height: 800px;
+        overflow-y: scroll;
+    }
+
+    .chat-message-left,
+    .chat-message-right {
+        display: flex;
+        flex-shrink: 0
+    }
+
+    .chat-message-left {
+        margin-right: auto
+    }
+
+    .chat-message-right {
+        flex-direction: row-reverse;
+        margin-left: auto
+    }
+
+    .py-3 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    .px-4 {
+        padding-right: 1.5rem !important;
+        padding-left: 1.5rem !important;
+    }
+
+    .flex-grow-0 {
+        flex-grow: 0 !important;
+    }
+
+    .border-top {
+        border-top: 1px solid #dee2e6 !important;
+    }
+
+    a.list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #212529 !important;
+        text-decoration: none !important;
+        background-color: rgba(48,148,88,0.5) !important;
+        border-bottom-style: solid !important;
+        border-bottom-width: thin !important;
+        border-bottom-color: #72d393 !important;
+    }
+
+    .disenChats {
+        margin-left: 0.3em;
+        color: #72d393;
+        font-size: larger;
+    }
+
+    .LetraTextChat {
+        color: #309458;
+        font-weight: bolder;
+    }
+    /*Favoritos*/
+
+.IconFav {
+    color: #309458;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 50%;
+    border-style: double;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 0.1em;
+}
+
+        .IconFav:hover {
+            color: #309458;
+            box-shadow: inset 0 0 1px #309458;
+        }
+
+        .IconFav:before {
+            content: '';
+            transition: .5s;
+            transform: scale(.9);
+        }
+
+        .IconFav:hover:before {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #72d393;
+        }
+
+        .IconFav:hover {
+            color: #72d393;
+            box-shadow: 0 0 5px #72d393;
+            text-shadow: 0 0 5px #72d393;
+        }
+
+    /*Icono Insertar*/
+
+.IconInsert {
+    color: #309458;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 50%;
+    border-style: double;
+    font-size: 36px;
+    cursor: pointer;
+    padding: 0.1em;
+}
+
+        .IconInsert:hover {
+            color: #309458;
+            box-shadow: inset 0 0 1px #309458;
+        }
+
+        .IconInsert:before {
+            content: '';
+            transition: .5s;
+            transform: scale(.9);
+        }
+
+        .IconInsert:hover:before {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #72d393;
+        }
+
+        .IconInsert:hover {
+            color: #72d393;
+            box-shadow: 0 0 5px #72d393;
+            text-shadow: 0 0 5px #72d393;
+        }
+
+.contIcon {
+    top: 89% !important;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #72d393;
+    text-align: center;
+    justify-content: center;
+    height: 13%;
+    width: 11%;
+    align-items: center;
+    display: flex;
+}
+
+.AnimCont {
+    position: relative;
+    top: 28% !important;
+    left: 16%;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #72d393;
+    text-align: center;
+    justify-content: center;
+    height: 111%;
+    width: 70%;
+    align-items: center;
+    display: block;
+    margin-bottom: 1em;
+}
+
+    form.FLogin {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: rgba(82,179,117,0.8);
+        border-radius: 1em;
+        border-style: solid;
+        border-width: thin;
+        border-color: #72d393;
+    }
+
+/*Donacion*/
+
+.contDonacion {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    /*position: absolute;
+    top: 29% !important;*/
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    height: 39%;
+    left: 5%;
+}
+
+.contFondoDon {
+    background-color: rgba(48,148,88,0.7) !important;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    border-radius: 1em;
+}
+
+    .contImag {
+        position: relative;
+        width: 75%;
+        max-width: 400px;
+        margin: auto;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        overflow: hidden;
+        border-radius: 1em;
+        border-style: solid;
+        border-width: medium;
+        border-color: #309458;
+    }
+
+        .contImag .content-overlay {
+            background: rgba(0,0,0,0.7);
+            position: absolute;
+            height: 99%;
+            width: 100%;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            -webkit-transition: all 0.4s ease-in-out 0s;
+            -moz-transition: all 0.4s ease-in-out 0s;
+            transition: all 0.4s ease-in-out 0s;
+        }
+
+        .contImag:hover .content-overlay {
+            opacity: 1;
+        }
+
+    .content-image {
+        width: 100%;
+    }
+
+    .content-details {
+        position: absolute;
+        text-align: center;
+        padding-left: 1em;
+        padding-right: 1em;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        text-decoration: none;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        -webkit-transition: all 0.3s ease-in-out 0s;
+        -moz-transition: all 0.3s ease-in-out 0s;
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    .contImag:hover .content-details {
+        top: 50%;
+        left: 50%;
+        opacity: 1;
+    }
+
+    .content-details h3 {
+        color: #fff;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        margin-bottom: 0.5em;
+        text-transform: uppercase;
+    }
+
+    .content-details p {
+        color: #fff;
+        font-size: 0.8em;
+    }
+
+    .fadeIn-bottom {
+        top: 80%;
+    }
+
+.contPago {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    /*position: absolute;
+    top: 70% !important*/
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 145px   ;
+    width: 61%;
+    left: 18%;
+    display: block;
+}
+
+.contPagos {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px; 
+    /*position: absolute;
+    top: 100% !important;*/
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    align-items: center;
+    height: 44%;
+    left: 24%;
+    display: flex;
+}
+
+
+    .IconPago {
+        color: #309458;
+        text-align: center;
+        background: #5dbe7f;
+        border-radius: 50%;
+        border-style: double;
+        font-size: 30px !important;
+        cursor: pointer;
+        padding: 0.3em;
+    }
+
+        .IconPago:hover {
+            color: #309458;
+            box-shadow: inset 0 0 1px #309458;
+        }
+
+        .IconPago:before {
+            content: '';
+            transition: .5s;
+            transform: scale(.9);
+        }
+
+        .IconPago:hover:before {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px #72d393;
+        }
+
+        .IconPago:hover {
+            color: #72d393;
+            box-shadow: 0 0 5px #72d393;
+            text-shadow: 0 0 5px #72d393;
+        }
+
+.BorderBajo {
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #DCF4E4;
+}
+
+    /*Estilo Tarjeta Credito*/
+
+    .form-container .field-container:first-of-type {
+        grid-area: name;
+    }
+
+    .form-container .field-container:nth-of-type(2) {
+        grid-area: number;
+    }
+
+    .form-container .field-container:nth-of-type(3) {
+        grid-area: expiration;
+    }
+
+    .form-container .field-container:nth-of-type(4) {
+        grid-area: security;
+    }
+
+    .field-container input {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .field-container {
+        position: relative;
+    }
+
+.form-container {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: auto auto;
+    grid-template-rows: 90px 90px 90px;
+    grid-template-areas: "name name""number number""expiration security";
+    /*max-width: 400px;*/
+    /*height: 350px;*/
+    /*padding: 20px;*/
+    color: #707070;
+    border-radius: 1em;
+    border-style: solid;
+    border-width: medium;
+    border-color: #72d393;
+    margin:auto;
+    margin-block:22%;
+    margin-top: 3%;
+    max-width:85%;
+    max-height:80%;
+}
+
+    div.field-container label {
+        padding-bottom: 5px;
+        font-size: 1.2em;
+        color: #72d393;
+        font-weight: bolder;
+    }
+
+    div.field-container input {
+        margin-top: 3px;
+        padding: 15px;
+        font-size: 16px;
+        width: 100%;
+        border-radius: 1em;
+        border-style: solid;
+        border-width: thin;
+        border-color: #72d393;
+    }
+
+    .ccicon {
+        height: 38px;
+        position: absolute;
+        right: 6px;
+        top: 51%;
+        width: 60px;
+    }
+
+    #generatecard {
+        cursor: pointer;
+        float: right;
+        font-size: 12px;
+        color: #fff;
+        padding: 2px 4px;
+        background-color: #909090;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    /*Modal*/
+
+    .BotonModal {
+        background-color: #72d393;
+        color: #309458;
+        border-radius: 1em;
+        border-style: solid;
+        width: 40%;
+        font-weight: bolder;
+    }
+
+.BotonOpcionesParaModal {
+    background-color: #309458;
+    color: #DCF4E4;
+    border-radius: 1em;
+    border-style: solid;
+    border-color: #DCF4E4;
+    font-weight: bolder;
+}
+
+    /*Historial Donaciones*/
+
+.contHistorialDonaciones {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    left: 11%;
+    top: 31%;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #72d393;
+}
+
+    .imagHistorial {
+        width: 76%;
+        border-style: solid;
+        border-width: thin;
+        border-color: #72d393;
+        border-radius: 2em;
+    }
+
+    .letrasHistorialD {
+        color: #72d393;
+        font-weight: bolder;
+        font-size: x-large;
+    }

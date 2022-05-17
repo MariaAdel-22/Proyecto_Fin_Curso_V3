@@ -1,0 +1,503 @@
+﻿@model Animal
+
+@{
+    Layout = "_PlantillaInicio";
+
+    List<Comentarios> comentarios = ViewData["Comentarios"] as List<Comentarios>;
+
+    VistaCuentas cuenta = ViewBag.Cuenta as VistaCuentas;
+
+    List<Usuario> usuarios = ViewBag.Usuarios as List<Usuario>;
+    List<Protectora> protectoras = ViewBag.Protectoras as List<Protectora>;
+
+    List<int> favoritos = ViewBag.Favoritos as List<int>;
+
+    int contadorUsuarios = 0;
+    int contadorProtectoras = 0;
+}
+
+<div class="container row flex-lg-row contenedorAnimal" id="contAn">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
+
+            <img src="https://bucket-proyecto.s3.amazonaws.com/Animales/@Model.Imagen" class="imgFicha">
+
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row flex-row">
+                <div class="col-lg-6 col-md-6 col-sm-6 mt-2" style="display:flex;justify-content:end;">
+                    <span class="IconoCor" id="@Model.CodigoAnimal">
+
+                        @if (favoritos != null)
+                        {
+                            if (favoritos.Contains(Model.CodigoAnimal))
+                            {
+
+                                <i class="fa fa-heart" id="corazon"></i>
+                            }
+                            else
+                            {
+
+                                <i class="fa fa-heart-o" id="corazon"></i>
+                            }
+                        }
+                        else
+                        {
+                            <i class="fa fa-heart-o" id="corazon"></i>
+                        }
+                    </span>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 mt-2" style="display:flex;justify-content:start;">
+
+                    <span class="IconoCor"><i class="fa fa-commenting" aria-hidden="true"></i></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12" style="position:relative;top:4%;">
+
+            <form>
+                <div class="row flex-lg-row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="nombre" class="form-label mb-2 LabelDisen">Nombre</label>
+                        <input type="text" class="form-control InputAnim" style="text-align: center;" id="nombre" name="nombre" value="@Model.Nombre" readonly>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="edad" class="form-label mb-2 LabelDisen">Edad</label>
+                        <input type="text" class="form-control InputAnim" style="text-align: center;" id="edad" name="edad" value="@Model.Edad" readonly>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="genero" class="form-label mb-2 LabelDisen">Género</label>
+
+                        @if (Model.Genero.TrimEnd() == "F")
+                        {
+                            <input type="text" class="form-control InputAnim" style="text-align: center;" id="genero" name="genero" value="Hembra" readonly>
+                        }
+                        else if (Model.Genero.TrimEnd() == "M")
+                        {
+                            <input type="text" class="form-control InputAnim" style="text-align: center;" id="genero" name="genero" value="Macho" readonly>
+                        }
+                        else if (Model.Genero.TrimEnd() == "H")
+                        {
+
+
+                            <input type="text" class="form-control InputAnim" style="text-align: center;" id="genero" name="genero" value="Hermafrodita" readonly>
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control InputAnim" style="text-align: center;" id="genero" name="genero" value="No definido" readonly>
+                        }
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="raza" class="form-label mb-2 LabelDisen">Especie</label>
+                        <input type="text" class="form-control InputAnim" style="text-align: center;" id="especie" name="especie" value="@Model.Especie" readonly>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        @if (cuenta.usuario != null)
+        {
+
+            <div class="col-lg-12 col-md-12 col-sm-12 posBoton">
+                <a asp-controller="Animal" asp-action="AnimalesProtectoras" class="botonFichaAnimal">Volver al listado</a>
+            </div>
+
+        }
+        else if (cuenta.protectora != null)
+        {
+
+            <div class="col-lg-12 col-md-12 col-sm-12 posBoton">
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="botonFichaAnimal">Volver al listado</a>
+            </div>
+        }
+
+    </div>
+
+    <div class="container row flex-row justify-content-center contenedorComentarios" id="ContComentarios" hidden>
+
+        <div class="col-12 mt-3" style="display: flex; justify-content: flex-start;">
+            <h1 class="titDin">Comentarios</h1>
+        </div>
+
+        <div class="col-8 mt-lg-2 mt-md-2 mt-sm-1" style="display: block; align-self: center;">
+            <form method="post" class="form_comentarios d-flex justify-content-end flex-wrap">
+                <textarea name="comentarioCuerpo" id="" placeholder="Comentario"></textarea>
+                <button class="btn butnDisen" type="submit">Comentar</button>
+            </form>
+        </div>
+
+        @if (comentarios != null)
+        {
+
+            foreach (Comentarios com in comentarios)
+            {
+
+                if (com.CodigoAnimal == Model.CodigoAnimal)
+                {
+
+                    foreach (Protectora pro in protectoras)
+                    {
+
+                        if (pro.IdProtectora.ToString().Equals(com.Codigo))
+                        {
+
+                            contadorProtectoras += 1;
+
+                            if (cuenta.protectora != null && cuenta.protectora.IdProtectora == pro.IdProtectora)
+                            {
+
+                            <div class="col-8 colorCaja">
+                                <div class="media row flex-row mt-4">
+
+                                    <div class="col-2">
+                                        <img src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@pro.Imagen" width="64" height="64" />
+                                    </div>
+                                    <div class="col-8">
+                                        <p class="nombre">@pro.Nombre<span>@com.Fecha.ToLongDateString()</span></p>
+                                    </div>
+
+                                    <div class="media-body col-9" style="display: flex; justify-content: start;" id="cuerpoMensaje">
+                                        <p class="comentario">@com.Mensaje</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="botones text-right" id="@com.CodigoMensaje">
+
+                                            <button id='edit' data-toggle="modal" class="btn BotonOpcionesParaModal" data-target="#showmodal">Editar</button>
+                                            <button id='delete' data-toggle="modal" class="btn BotonOpcionesParaModal" data-target="#showmodalDelete">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+
+                            <div class="col-8 colorCaja" id="@com.CodigoMensaje">
+                                <div class="media row flex-row mt-4">
+
+                                    <div class="col-2">
+                                        <img src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@pro.Imagen" width="64" height="64" />
+                                    </div>
+                                    <div class="col-8">
+                                        <p class="nombre">@pro.Nombre<span>@com.Fecha.ToLongDateString()</span></p>
+                                    </div>
+
+                                    <div class="media-body col-9" style="display: flex; justify-content: start;">
+                                        <p class="comentario">@com.Mensaje</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="botones text-right" id="@pro.IdProtectora">
+
+                                            <a id="@com.Codigo" hidden>Editar</a>
+                                            <a id="@com.Codigo" hidden>Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        }
+                    }
+
+
+                    foreach (Usuario usu in usuarios)
+                    {
+
+                        if (usu.Dni == com.Codigo)
+                        {
+
+                            contadorUsuarios += 1;
+
+                            if (contadorUsuarios <= usuarios.Count())
+                            {
+
+                                if (cuenta.usuario != null && cuenta.usuario.Dni == usu.Dni)
+                                {
+
+                                    <div class="col-8 colorCaja">
+                                        <div class="media row flex-row mt-4">
+
+                                            <div class="col-2">
+                                                <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@usu.Imagen" width="64" height="64" />
+                                            </div>
+                                            <div class="col-8">
+                                                <p class="nombre">@usu.NombreUsuario<span>@com.Fecha.ToLongDateString()</span></p>
+                                            </div>
+
+                                            <div class="media-body col-9" style="display: flex; justify-content: start;" id="cuerpoMensaje">
+                                                <p class="comentario">@com.Mensaje</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="botones text-right" id="@com.CodigoMensaje">
+
+                                                    <button id='edit' data-toggle="modal" class="btn BotonOpcionesParaModal" data-target="#showmodal">Editar</button>
+                                                    <button id='delete' data-toggle="modal" class="btn BotonOpcionesParaModal" data-target="#showmodalDelete">Eliminar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else { 
+                                
+                                    <div class="col-8 colorCaja" id="@com.CodigoMensaje">
+                                        <div class="media row flex-row mt-4">
+
+                                            <div class="col-2">
+                                                <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@usu.Imagen" width="64" height="64" />
+                                            </div>
+                                            <div class="col-8">
+                                                <p class="nombre">@usu.NombreUsuario<span>@com.Fecha.ToLongDateString()</span></p>
+                                            </div>
+
+                                            <div class="media-body col-9" style="display: flex; justify-content: start;">
+                                                <p class="comentario">@com.Mensaje</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="botones text-right" id="@usu.Dni">
+
+                                                    <a id="@com.Codigo" hidden>Editar</a>
+                                                    <a id="@com.Codigo" hidden>Eliminar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+    </div>
+</div>
+
+
+@section codigoInicio{
+    <script>
+
+        $(document).ready(function () {
+
+            $("#corazon").click(function () {
+
+                if ($(this).attr("class") == 'fa fa-heart-o') {
+
+                    console.log("Entra a la clase "+$(this).attr("class"));
+                    var padre = $(this).parent().attr("id");
+                    var url = "@Url.Action("InsertarFavorito","Animal")";
+
+                    var data = { codigoAnimal: padre };
+
+                    $.post(url, data).done(function (data) {
+
+                        console.log("funciona");
+                    });
+
+
+                }else{
+
+                    console.log("Entra a la clase " + $(this).attr("class"));
+                    var padre = $(this).parent().attr("id");
+                    var url = "@Url.Action("EliminarFavorito","Animal")";
+
+                    var data = { codigoAnimal: padre };
+
+                    $.post(url, data).done(function (data) {
+
+                        console.log("funciona");
+                    });
+                }
+
+            });
+
+            $("button").click(function () {
+
+                if ($(this).attr("id") == 'edit') {
+
+                    var idMensaje = $(this).parent().attr("id");
+                    $("#contenedorModal").load("/Animal/_ModalEditarComentario?idcomentario=" + idMensaje);
+                }
+
+            });
+
+            $('body').on('click', '#deleteComentario', function () {
+
+                var url = "@Url.Action("EliminarComentario","Animal")";
+                var idComentario = $(this).parent().attr("id");
+                var idAnimal = "@Model.CodigoAnimal";
+                var data = { idComentario: idComentario,idAnimal:idAnimal };
+
+                $.post(url, data).done(function (data) {
+
+                    console.log("Funciona");
+
+                    if(data.result == 'Redirect')
+                      window.location = data.url;
+                });
+            });
+
+           $('body').on('click', '#editComentario', function () {
+
+                var url ="@Url.Action("ModificarComentario", "Animal")";
+
+                var comentario = $("#mensaje").val();
+                var idComentario = $(this).parent().attr("id");
+
+                var data = { idComentario: idComentario, Comentario: comentario };
+
+               var mensaje = "";
+               var idCom = "";
+
+                $.post(url, data).done(function (data) {
+
+                    $.each(data, function (index, valor) {
+
+                        if (index == 'codigoMensaje') {
+
+                            idCom = valor;
+
+                        } else if (index == 'mensaje') {
+
+                            mensaje = valor;
+                        }
+
+                    });
+
+                    var botones = $("button");
+
+                    for (var i = 0; i <= botones.length;i++) {
+
+                        var boton = botones[i];
+
+                        if ($(boton).attr("id") == 'edit') {
+
+                            if ($(boton).parent().attr("id") == idCom) {
+
+                                var padre2 = $(boton).parent().parent().parent();
+
+                                var hijos = $(padre2).children();
+
+                                for (var i = 0; i <= hijos.length;i++) {
+
+                                    var hijo = hijos[i];
+
+                                    if ($(hijo).attr("id") == "cuerpoMensaje") {
+
+                                        $(hijo).html('<p class="comentario">' + comentario + '</p>');
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }).fail("No ha funcionado..");
+
+            });
+
+            $("button").click(function () {
+
+                if ($(this).attr("id") == 'delete') {
+
+                    var codigoMensaje = $(this).parent().attr("id");
+
+                    $("#contenedorModalDelete").load("/Animal/_ModalEliminarComentario?idcomentario=" + codigoMensaje);
+                }
+
+            });
+
+            $("span").click(function () {
+
+                var icon = $(this).children().attr("class");
+
+                if (icon == "fa fa-heart-o") {
+
+                    $(this).children().removeClass("fa fa-heart-o");
+                    $(this).children().addClass("fa fa-heart");
+
+                } else if (icon == "fa fa-heart") {
+
+                    $(this).children().removeClass("fa fa-heart");
+                    $(this).children().addClass("fa fa-heart-o");
+
+                } else if (icon == "fa fa-commenting") {
+
+                    var attr = $(".contenedorComentarios").attr('hidden');
+
+                    if (typeof attr !== typeof undefined && attr !== false) {
+
+                        $(".contenedorComentarios").removeAttr("hidden");
+                    } else {
+                        $(".contenedorComentarios").attr("hidden", true);
+                    }
+
+                }
+
+            });
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+    </script>
+
+}
+
+<!--MODAL DE EDITAR COMENTARIO-->
+<div id="showmodal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="contenedorModal">
+
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL ELIMINAR COMENTARIO-->
+<div id="showmodalDelete" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="contenedorModalDelete">
+
+        </div>
+    </div>
+</div>

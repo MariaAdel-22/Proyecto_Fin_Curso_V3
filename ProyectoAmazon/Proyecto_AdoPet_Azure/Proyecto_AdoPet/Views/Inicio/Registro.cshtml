@@ -1,0 +1,204 @@
+﻿@section titulo{ Registro }
+
+@{
+
+    Layout = "_Layout";
+}
+
+<div class="container col-lg-7 col-md-6 col-sm-8 col-11 ContenedorReg">
+    <div class="row flex-row">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-5 mt-4 titR">
+            <h3 class="LabelDisen" style="text-align: center;">Registro</h3>
+        </div>
+    </div>
+    <div class="row flex-lg-row pLogin">
+        <div class="col-8 mt-4 ml-3">
+            <form class="FLogin" method="post" enctype="multipart/form-data" id="formRegistro">
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12">
+                    <h4 class="LabelDisen">¿Qué tipo de cuenta es?</h4>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="usuario" name="tipoCuenta" value="usuario" checked>
+                        <label class="form-check-label LabelDisen" for="usuario">Usuario</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="protectora" name="tipoCuenta" value="protectora" />
+                        <label class="form-check-label LabelDisen" for="protectora">Protectora</label>
+                    </div>
+                </div>
+
+                <!--Datos de usuario-->
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="nombre" class="form-label mb-2 LabelDisen">Nombre:</label>
+                    <input type="text" class="form-control InputDisen" id="nombreU" placeholder="Introduzca su nombre" name="nombre">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="apel" class="form-label mb-2 LabelDisen">Apellidos:</label>
+                    <input type="text" class="form-control InputDisen" id="apellidos" placeholder="Introduzca sus apellidos" name="apellidos">
+                </div>
+
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="dni" class="form-label mb-2 LabelDisen">DNI/NIE:</label>
+                    <input type="text" class="form-control InputDisen" id="dni" placeholder="Introduzca su documento de identidad" name="dni">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="telefono" class="form-label mb-2 LabelDisen">Contacto:</label>
+                    <input type="text" class="form-control InputDisen" id="telefonoU" placeholder="Introduzca un contacto" name="telefono">
+                </div>
+
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad:</label>
+                    <input type="text" class="form-control InputDisen" id="ciudadU" placeholder="Introduzca su ciudad" name="ciudad">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="usuario" class="form-label mb-2 LabelDisen">Nombre de usuario:</label>
+                    <input type="text" class="form-control InputDisen" id="usuarioU" placeholder="Introduzca su nombre de usuario" name="usuario">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosUsuario">
+                    <label for="pwd" class="form-label mb-2 LabelDisen">Password:</label>
+                    <input type="password" class="form-control InputDisen" id="pwdU" placeholder="Introduzca una contraseña" name="pswd">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 col-12 datosUsuario mt-2">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <img src="~/img/ImagenParaBorrar.jpg" class="imgRegistro">
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="z-index: 1; display: flex; justify-content: center; position: relative; top: -1.5em; height: 2em;">
+
+                        <i class="fa fa-plus-square-o IconRegistro" style="height:100%;"></i>
+
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="z-index: 2; display: flex; justify-content: center; position: relative; top: -3.5em; height: 2em; opacity: 0;">
+
+                        <input type="file" name="imagenU" id="imagenUsuario" class="IconRegistro" style="height:100%;"/>
+
+                    </div>
+
+                </div>
+
+                <!--Datos de protectora-->
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="nombre" class="form-label mb-2 LabelDisen">Nombre de la protectora:</label>
+                    <input type="text" class="form-control InputDisen" id="nombreP" placeholder="Introduzca un nombre de protectora" name="nombreP">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="direccion" class="form-label mb-2 LabelDisen">Direccion:</label>
+                    <input type="text" class="form-control InputDisen" id="direccion" placeholder="Introduzca una direccion" name="direccionP">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad:</label>
+                    <input type="text" class="form-control InputDisen" id="ciudadP" placeholder="Introduzca una ciudad" name="ciudadP">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="telefono" class="form-label mb-2 LabelDisen">Contacto:</label>
+                    <input type="text" class="form-control InputDisen" id="telefonoP" placeholder="Introduzca un contacto" name="telefonoP">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="paypal" class="form-label mb-2 LabelDisen">Correo electrónico asociado a PayPal (opcional): </label>
+                    <input type="text" class="form-control InputDisen" id="paypal" placeholder="Introduzca un correo electrónico" name="paypal">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="cuentaBanco" class="form-label mb-2 LabelDisen">Nº Cuenta Bancaria:</label>
+                    <input type="text" class="form-control InputDisen" id="cuentaBanco" placeholder="Introduzca un número de cuenta bancaria" name="banco">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 datosProtectora" hidden>
+                    <label for="pwd" class="form-label mb-2 LabelDisen">Password:</label>
+                    <input type="password" class="form-control InputDisen" id="pwdP" placeholder="Introduzca una contraseña" name="pswdP">
+                </div>
+
+                <div class="mt-3 col-lg-12 col-md-12 col-sm-12 col-12 datosProtectora mt-2" hidden>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <img src="~/img/ImagenParaBorrar.jpg" class="imgRegistro">
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="z-index: 1; display: flex; justify-content: center; position: relative; top: -1.5em; height: 2em;">
+
+                        <i class="fa fa-plus-square-o IconRegistro" style="height:100%;"></i>
+
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="z-index: 2; display: flex; justify-content: center; position: relative; top: -3.5em; height: 2em; opacity: 0;">
+
+
+                        <input type="file" class="IconRegistro" name="ImagenP" id="imagenProtectora" style="height:100%;" />
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 btnLogin mb-2">
+                    <button type="submit" class="btn btn-outline-success mt-3 BotonDisen" id="botonRegistro">Registrarme</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section codigoLogin{
+
+    <script>
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#botonRegistroLogin").text("Iniciar Sesión");
+            $("#botonRegistroLogin").click(function () {
+
+                $(this).text("Iniciar Sesión");
+                window.location = "@Url.Action("Index","Inicio")";
+
+            });
+
+            $('input[name=tipoCuenta]').change(function () {
+
+                var valor = $('input[name=tipoCuenta]:checked').val();
+
+                if (valor == 'protectora') {
+
+                    $('.datosUsuario').attr("hidden", true);
+                    $(".ContenedorReg").css("height", "209%");
+                    $('.datosProtectora').removeAttr("hidden");
+
+                } else if (valor == 'usuario') {
+
+                    $('.datosProtectora').attr("hidden", true);
+                    $('.datosUsuario').removeAttr("hidden");
+                    $(".ContenedorReg").css("height", "206%");
+                }
+            });
+
+            $(document).on('change', '#imagenUsuario', function (e) {
+
+                var TmpPath = URL.createObjectURL(e.target.files[0]);
+                $(".imgRegistro").attr("src", TmpPath);
+            });
+
+            $(document).on('change', '#imagenProtectora', function (e) {
+
+                var TmpPath = URL.createObjectURL(e.target.files[0]);
+                $(".imgRegistro").attr("src", TmpPath);
+            });
+
+        });
+    </script>
+}

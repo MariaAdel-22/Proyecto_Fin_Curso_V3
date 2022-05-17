@@ -1,0 +1,108 @@
+﻿@model VistaCuentas
+
+@{ 
+    Layout = "_PlantillaInicio";
+
+   List<Donacion> donaciones = ViewData["Donaciones"] as List<Donacion>; 
+}
+
+@if (Model.protectora != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="btn LetraMenu">Notificaciones</a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (donaciones != null)
+{
+
+<div class="row col-lg-9 col-md-8 col-sm-8 col-8 contHistorialDonaciones">
+
+
+                @if (donaciones.Count == 0)
+                {
+                        <h1 class="LabelDisen">No ha recibido donaciones aún.</h1> 
+                }
+                else
+                {
+                    @foreach (Donacion don in donaciones)
+                    {
+
+                        <div class="row col-10 mt-2 alert alert-success alert-dismissible" style="display: flex; justify-content: center; align-items: center;">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <p class="col-8 letrasHistorialD">¡Ha recibido una donación de @don.Cantidad€!</p>
+                            <a class="col-4" asp-controller="Donacion" asp-action="PerfilUsuarioDonante" asp-route-dni="@don.Dni"><img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@don.ImagenDonante" class="imagHistorial" /></a>
+                        </div>
+                     }
+    
+                }
+
+
+
+
+</div>
+}
+else
+{
+<div class="row col-lg-9 col-md-8 col-sm-8 col-8 contHistorialDonaciones">
+    <h1 class="LabelDisen">No ha recibido donaciones aún.</h1>
+</div>
+}
+
+@section codigoInicio{
+
+    <script>
+
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+
+    </script>
+}

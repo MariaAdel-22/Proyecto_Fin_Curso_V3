@@ -1,0 +1,10 @@
+Posibles colores:
+
+#DCF4E4 - Casi blanco
+#72d393- Claro
+#5dbe7f- Medio Claro
+#52B375 - Medio
+#3c9e62- Medio Oscuro
+#309458- Oscuro
+#309458-Muy Oscuro
+

@@ -1,0 +1,685 @@
+.body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+
+
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.contenedorcito {
+    /*display: flex;*/
+    /*Para aplicar solamente al contenido y no al footer el estilo del contenedor*/
+    justify-content: center;
+    align-items: center;
+    /*Para que en la paginas pequeñas llegue hasta el fondo*/
+    min-height:93.333%;
+}
+
+/*footer*/
+
+#piePagina {
+    background-color: #ffffff;
+    /*position: absolute;*/
+    border-style: solid;
+    border-color: #DCF4E4;
+    /*Al ser footer siempre irá al fondo*/
+    /*bottom: 0;*/
+    width: 100%;
+    color: #3c9e62;
+    text-align:center;
+    height:45px;
+}
+
+
+img#imgFondo {
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.contenedor {
+    background-color: #309458;
+    
+}
+
+.contLogin {
+    /*
+    position: absolute;
+    top: 25% !important;*/
+    background-color: rgba(82,179,117,0.7);
+    border-style: solid !important;
+    border-radius: 3em;
+    border: 0.3em;
+    border-color: #DCF4E4;
+    /*Para que no tope con nada*/
+    margin-top:9%;
+
+}
+
+.ContenedorReg {
+    /*position: absolute;
+    top: 25% !important;*/
+    background-color: rgba(82,179,117,0.7);
+    border-style: solid !important;
+    border-radius: 3em;
+    border: 0.3em;
+    border-color: #72d393;
+    /*Para que se centre*/
+    margin:auto;
+}
+
+.imgRegistro {
+
+    width: 100%;
+    height: auto;
+    border-radius: 1.2em;
+    border-style: solid;
+    border-width: initial;
+    border-color: #309458;
+}
+
+.IconRegistro {
+
+    color: #309458;
+    position: relative;
+    width: 18%;
+    display: flex !important;
+    text-align: center;
+    background: #72d393;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 26px !important;
+    cursor: pointer;
+}
+
+.contenImagen {
+    background-color: rgba( 48,148,88,1);
+    width: 30%;
+    height: 30%;
+}
+
+.titR {
+    border-style: solid;
+    border-radius: 0.3em;
+    border-color: #72d393;
+    margin-left: 6%;
+}
+
+.pLogin {
+
+    position: relative;
+    justify-content: center;
+}
+
+.barraInicial {
+    background-color: rgba(82,179,117,0.8);
+    /*position: absolute;
+    top: 0%;*/
+    width: 98.5%;
+    height: 14%;
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    /*Ajustamos al centro*/
+    margin:auto;
+    margin-block:10px;
+}
+
+form.FLogin {
+
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnLogin {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.BotonegistroLogin {
+    background-color: #72d393;
+    color: #309458;
+    border-radius: 1em;
+    border-style: solid;
+    height: 50%;
+    float: right;
+    font-weight: bolder;
+}
+
+.BotonDisen {
+    background-color: #72d393;
+    color: #309458;
+    border-radius: 1em;
+    border-color: #DCF4E4;
+    border-style: solid;
+    font-weight: bolder;
+}
+
+
+.LabelDisen {
+    color: #DCF4E4;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.InputDisen {
+    border-style: solid;
+    border-width: 0.2em;
+    border-color: #DCF4E4;
+}
+
+.MenuUsuario {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 10px;
+    top: 15% !important;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.MenuProtectora {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 94%;
+}
+
+.OpMenu {
+    background-color: #ffffff;
+    color: #309458;
+    border-radius: 1em;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LetraMenu {
+
+    color: #309458;
+    font-weight: bolder;
+}
+
+.LetraMenu:hover {
+
+    background-color: #309458;
+    color: #72d393;
+}
+
+.contenedoresDatos {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    position:relative;
+    margin-block: 20px;
+    top: 15vh;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    height: 38%;
+    padding-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    grid-column-gap: 20px;
+}
+
+.conten1 {
+    background-color: #309458;
+    height: 70%;
+    border-style: solid;
+    border-radius: 1em;
+    border-width: thin;
+    border-color: #DCF4E4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conten2 {
+    background-color: #309458;
+    height: 90%;
+    border-style: solid;
+    border-radius: 1em;
+    border-width: thin;
+    border-color: #DCF4E4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1%;
+}
+
+.EstilContens {
+
+    color: #72d393;
+    font-weight: unset;
+    font-size: x-large;
+    text-shadow: -2px -2px 1px #309458, 2px 2px 1px #309458, -2px 2px 1px #309458, 2px -2px 1px #309458;
+}
+
+
+.EstilContens::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    margin-top: 5px;
+    background-color: #72d393;
+    transition: width .3s;
+}
+
+.EstilContens:hover::after {
+    width: 100%;
+    transition: width .3s;
+}
+
+#IconIns {
+
+    z-index: 2;
+    position: absolute;
+    top: 30%;
+    left: 0%;
+    opacity: 0;
+}
+
+/*MENU LATERAL */
+
+@media only screen and (max-width: 2000px) {
+    #mySidenav1 {
+        left: 87%;
+    }
+
+    #mySidenav2 {
+        left: 87%;
+    }
+
+    .imgFicha {
+        width: 30%;
+        max-width: 36%;
+        height: 264px;
+    }
+
+    #contenedorFich {
+        height: 77%;
+        width: 77%;
+    }
+
+    #IconIns {
+        top: 36%;
+    }
+}
+
+
+@media only screen and (max-width:1366px) {
+
+    #mySidenav1 {
+        left: 82%;
+    }
+
+    #mySidenav2 {
+        left: 82%;
+    }
+
+    #contenedorFich {
+        height: 97%;
+        width: 87%;
+    }
+
+    #IconIns {
+        top: 42%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    #mySidenav1 {
+        left: 79%;
+    }
+
+    #mySidenav2 {
+        left: 79%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #mySidenav1 {
+        left: 76%;
+    }
+
+    #mySidenav2 {
+        left: 76%;
+    }
+}
+
+@media only screen and (max-width: 966px) {
+    #mySidenav1 {
+        left: 74%;
+    }
+    #mySidenav2 {
+        left: 74%;
+    }
+}
+
+@media only screen and (max-width: 830px) {
+    #mySidenav1 {
+        left: 70%;
+    }
+
+    #mySidenav2 {
+        left: 70%;
+    }
+}
+
+@media only screen and (max-width: 704px) {
+    #mySidenav1 {
+        left: 64%;
+    }
+
+    #mySidenav2 {
+        left: 64%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #mySidenav1 {
+        left: 57%;
+    }
+
+    #mySidenav2 {
+        left: 57%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    #mySidenav1 {
+        left: 48%;
+    }
+
+    #mySidenav2 {
+        left: 48%;
+    }
+}
+
+.sidenav {
+    overflow: hidden;
+    height: 100%;
+    width: 0;
+    left: 87%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    background-color: rgba(82,179,117,0.8);
+    padding-top: 67px;
+    transform: translateX(0px);
+    border-radius: 0% 0% 0% 0%;
+}
+
+.sidenav a {
+    padding: 8px 8px 32px;
+    color: #c8e6cf;
+    font-weight: 400;
+    font-size: x-large;
+    display: block;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    transform: translateY(10px);
+}
+
+.sidenav a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    margin-top: 5px;
+    background-color: #72d393;
+    transition: width .3s;
+}
+
+.sidenav a:hover::after {
+    width: 100%;
+    transition: width .3s;
+}
+
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    transform: translateX(0px);
+}
+
+.sidenav .closebtn {
+position: absolute;
+top: 0;
+right: 25px;
+font-size: 36px;
+margin-left: 50px;
+}
+
+#main {
+
+    transition: margin-right .5s;
+    position: relative;
+    width: 30%;
+    height: 30%;
+    display: flex;
+    justify-content: end;
+}
+
+
+#Icono{
+    color: #309458;
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    background: #ffffff;
+    border-radius: 50%;
+    font-size: 30px;
+    transition: .5s;
+}
+
+#Icono:hover {
+    box-shadow: inset 0 0 1px #309458;
+}
+
+#Icono:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #72d393;
+    border-radius: 50%;
+    transition: .5s;
+    transform: scale(.9);
+    z-index: -1;
+}
+
+#Icono:hover:before {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #72d393;
+}
+
+#Icono:hover {
+    color: #72d393;
+    box-shadow: 0 0 5px #72d393;
+    text-shadow: 0 0 5px #72d393;
+}
+
+.bordeInicial {
+
+    border-top-style: solid;
+    border-top-width: medium;
+    border-top-color: #72d393;
+}
+
+
+.contenedorFich {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    height: 120%;
+    width: 89%;
+}
+
+.imgFicha {
+    width: 28%;
+    max-width: 36%;
+    height: 221px;
+    border-radius: 1.2em;
+    border-style: solid;
+    border-width: initial;
+    border-color: #DCF4E4;
+}
+
+i.fa.IconFicha {
+    color: #309458;
+    position: relative;
+    width: 6%;
+    height: 5%;
+    text-align: center;
+    line-height: 46px;
+    background: #72d393;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+#FichInp {
+    color: #309458;
+    position: relative;
+    width: 6%;
+    height: 5%;
+    text-align: center;
+    line-height: 46px;
+    background: #5dbe7f;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+    z-index:2;
+}
+
+span.IconModif {
+    color: #309458;
+    display: block;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    background: #5dbe7f;
+    border-radius: 50%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.filtroCon {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    top: 29% !important;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.BotonFiltro {
+    color: #309458;
+    background-color: #72d393;
+    border-radius: 1em;
+    border-style: solid;
+    width: 16%;
+    font-weight: bolder;
+    position: relative;
+    top: 1em;
+}
+
+.BotonFiltro a {
+    text-decoration: none;
+    color: #309458;
+}
+
+.BotonFiltro a:hover {
+    color: #72d393;
+}
+
+
+.listadoCon {
+    /*position: absolute;*/
+    /*Margin auto para centrar el DIV*/
+    margin: auto;
+    /*Para espaciar entre Div's*/
+    margin-block: 20px;
+    top: 52% !important;
+    background-color: rgba(82,179,117,0.8);
+    border-radius: 1em;
+    border-style: solid;
+    border-width: thin;
+    border-color: #DCF4E4;
+    text-align: center;
+    justify-content: center;
+}
+

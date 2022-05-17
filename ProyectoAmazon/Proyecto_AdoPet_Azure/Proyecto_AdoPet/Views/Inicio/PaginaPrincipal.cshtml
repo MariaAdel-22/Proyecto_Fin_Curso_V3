@@ -1,0 +1,117 @@
+﻿@model VistaCuentas
+
+@section titulo{ Pagina Principal }
+
+@{
+
+    Layout = "_PlantillaInicio";
+
+    int animales = int.Parse(ViewData["animales"].ToString());
+    int protectoras = int.Parse(ViewData["protectoras"].ToString());
+    int usuarios = int.Parse(ViewData["usuarios"].ToString());
+}
+
+@if (Model.usuario != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Animal" asp-action="AnimalesProtectoras" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="Donaciones" class="btn LetraMenu">Hacer una Donación</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (Model.protectora != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+            
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="btn LetraMenu">Notificaciones</a>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container contenedoresDatos col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 row flex-row">
+
+    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-8 col-10 conten1 mt-3">
+        <h4 class="EstilContens">Nº de animales en adopción: <strong>@animales </strong></h4>
+    </div>
+
+    <div class="col-xl-5 col-lg-6 col-md-7 col-sm-8 col-10 conten2 mt-3">
+        <h4 class="EstilContens">Nº de protectoras registradas: <strong>@protectoras</strong></h4>
+        <h4 class="EstilContens">Nº de usuarios registrados: <strong>@usuarios</strong></h4>
+    </div>
+
+</div>
+
+@section codigoInicio{
+
+    <script>
+
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                 
+                    $("#mySidenav2").css("width", "250px");
+                  
+
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+                
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿@model Comentarios
+
+@if (Model != null)
+{
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: 25em; width: 28em;">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar Comentario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body" style=" display: flex; justify-content: center; ">
+               <p class="LabelDisen">¿Desea eliminar el comentario?</p>
+            </div>
+
+            <div class="modal-footer" style=" display: flex; justify-content: center;" id="@Model.CodigoMensaje">
+
+                <button type="button" class="btn BotonModal" id="deleteComentario" data-dismiss="modal">Eliminar</button>
+                <button type="button" class="btn BotonModal" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+}
+else { 
+
+    <h1>No hay comentario para eliminar</h1>
+}

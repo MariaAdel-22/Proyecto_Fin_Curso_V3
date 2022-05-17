@@ -1,0 +1,241 @@
+﻿@model VistaCuentas
+
+@section titulo{ Animales de Protectora }
+
+@{
+    //Layout = "_PlantillaListadoAnimales";
+    Layout = "_PlantillaInicio";
+
+    Animal animal = ViewBag.Animal as Animal;
+}
+
+@if (Model.protectora != null)
+{
+    <div class="container MenuUsuario row flex-row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 row OpMenu">
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+                <a asp-controller="Protectora" asp-action="AnimalesProtectora" class="btn LetraMenu">Animales en Adopción</a>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Protectora" asp-action="Protectoras" class="btn LetraMenu">Protectoras</a>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <a asp-controller="Donacion" asp-action="HistorialDonaciones" class="btn LetraMenu">Notificaciones</a>
+            </div>
+        </div>
+    </div>
+}
+
+@if (animal != null)
+{
+
+    <div class="container AnimCont row flex-lg-row" id="contModif">
+        <div class="row flex-row">
+            <div class="col-lg-3 col-md-5 col-sm-6 mt-4 titR">
+                <h3 class="LabelDisen">Modificar Animal</h3>
+            </div>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
+
+                    <img src="https://bucket-proyecto.s3.amazonaws.com/Animales/@animal.Imagen" class="imgFicha">
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" style="z-index:1;position:relative;top:-6%;">
+
+                    <i class="fa fa-plus-square-o IconFicha"></i>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12" id="IconAn" style="position: relative; top: -45px;">
+
+                    <input type="file" name="imagenAnimalModificado" id="InsertAnim"/>
+
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="row flex-lg-row" style="display: flex; justify-content: center;">
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="nombre" class="form-label mb-2 LabelDisen">Nombre del animal:</label>
+                        <input type="text" class="form-control InputDisen" placeholder="Introduzca un nombre" name="Nombre" value="@animal.Nombre" disabled>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                        <span class="IconModif" id="nombre"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="edad" class="form-label mb-2 LabelDisen">Edad:</label>
+                        <input type="text" class="form-control InputDisen" placeholder="Introduzca una edad" name="Edad" value="@animal.Edad" disabled>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                        <span class="IconModif" id="edad"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="genero" class="form-label mb-2 LabelDisen">Género:</label>
+                        <select class="form-control InputDisen" id="genero" name="Genero" disabled>
+
+                            @if (animal.Genero.TrimEnd().ToString() == "H")
+                            {
+                                <option value="@animal.Genero" selected>Hermafrodita</option>
+                                <option value="M">Macho</option>
+                                <option value="F">Hembra</option>
+                            }
+                            else if (animal.Genero.TrimEnd().ToString() == "F")
+                            {
+                                <option value="@animal.Genero" selected>Hembra</option> 
+                                <option value="M">Macho</option>
+                                <option value="H">Hermafrodita</option>
+                            }
+                            else if (animal.Genero.TrimEnd().ToString() == "M")
+                            {
+
+                                <option value="@animal.Genero" selected>Macho</option>
+                                <option value="F">Hembra</option>
+                                <option value="H">Hermafrodita</option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                        <span class="IconModif" id="genero"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+
+                    <div class="col-lg-5 col-md-6 col-sm-12">
+                        <label for="peso" class="form-label mb-2 LabelDisen">Peso:</label>
+                        <input type="text" class="form-control InputDisen" placeholder="Introduzca un peso" name="Peso" value="@animal.Peso" disabled>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                        <span class="IconModif" id="peso"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+
+                    <div class="col-lg-9 col-md-6 col-sm-12">
+                        <label for="especie" class="form-label mb-2 LabelDisen">Especie:</label>
+                        <input type="text" class="form-control InputDisen" placeholder="Introduzca una especie" name="Especie" value="@animal.Especie" disabled>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                        <span class="IconModif" id="especie"><i class="fa fa-pencil-square"></i></span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12" style="display: flex; justify-content: center;">
+                        <button type="submit" class="btn btn-outline-success mt-3 BotonDisen" id="registrar">Modificar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+
+@section codigoInicio{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("span").click(function () {
+
+                if ($(this).hasClass("IconModif") == true) {
+
+                    var valor = $(this).attr("id").toUpperCase();
+                    var inputs = $("input");
+
+                    for (var i = 0; i < inputs.length; i++) {
+
+                        if (inputs[i].getAttribute("name") != "imagenAnimalModificado") {
+
+                            if (inputs[i].getAttribute("name").toUpperCase() == valor) {
+
+                                inputs[i].removeAttribute("disabled");
+                            } else {
+                                inputs[i].setAttribute("disabled", true);
+                            }
+                        }
+
+                        
+                    }
+
+                    var select = $("select");
+
+                    for (var i = 0; i < select.length; i++) {
+
+                        if (select[i].getAttribute("name").toUpperCase() == valor) {
+
+                            select[i].removeAttribute("disabled");
+
+                        } else {
+
+                            select[i].setAttribute("disabled", true);
+                        }
+                    }
+                }
+            });
+
+            $("#registrar").click(function () {
+
+                var inputs = $("input");
+
+                for (var i = 0; i < inputs.length; i++) {
+
+                    inputs[i].removeAttribute("disabled");
+                }
+
+            });
+
+            $(document).on('change', '#FichInp', function (e) {
+
+                var TmpPath = URL.createObjectURL(e.target.files[0]);
+                $("#ImagAnim").attr("src", TmpPath);
+            });
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+    </script>
+}

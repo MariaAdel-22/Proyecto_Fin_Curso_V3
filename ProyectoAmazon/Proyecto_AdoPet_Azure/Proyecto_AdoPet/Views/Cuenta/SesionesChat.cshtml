@@ -1,0 +1,121 @@
+﻿@model Dictionary<string, string>
+
+@{
+    Layout = "_PlantillaInicio";
+    Dictionary<string, string> ImagenesP = ViewData["ImagenesProtectora"] as Dictionary<string, string>;
+    Dictionary<string, string> ImagenesU = ViewData["ImagenesUsuario"] as Dictionary<string, string>;
+}
+
+<div class="container row d-flex flex-column" style="position: absolute; top: 15% !important;">
+    <div class="col-12">
+        <main class="contenedorCard">
+            <div class="container p-0">
+
+                <h1 class="h3 mb-3" style="color: #72d393;">Chats</h1>
+
+                <div class="card carChat">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-5 col-xl-3 borLateral">
+                            @foreach (var e in Model)
+                            {
+                                <a href="#" class="list-group-item list-group-item-action border-0" id="@e.Key">
+                                    <div class="d-flex align-items-start">
+
+
+                                        @if(ImagenesP != null){
+                                        
+                                        
+                                            @foreach (var p in ImagenesP)
+                                            {
+
+                                                if (e.Key == p.Key)
+                                                {
+                                                    <img src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@p.Value" class="rounded-circle mr-1" width="50" height="50">
+                                                }
+                                             }
+
+                                        }
+
+                                        @if(ImagenesU != null){
+                                        
+                                            @foreach (var k in ImagenesU)
+                                            {
+
+                                                if (e.Key == k.Key)
+                                                {
+
+                                                   <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@k.Value" class="rounded-circle mr-1" width="50" height="50">
+                                                }
+                                             }
+                                        }
+
+                                        <div class="flex-grow-1 mt-2 ml-3 disenChats">
+                                            @e.Value
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                            <hr class="d-block d-lg-none mt-1 mb-0">
+                        </div>
+
+                        <div class="col-12 col-lg-7 col-xl-9" id="DisenCaja">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+@section codigoInicio{
+
+    <script>
+        $(document).ready(function () {
+
+            $("a").click(function () {
+
+                if ($(this).hasClass("list-group-item-action")) {
+                    var idProtectoraR = $(this).attr("id");
+                    $("#DisenCaja").load("/Cuenta/Room?room=" + idProtectoraR);
+                }   
+            });
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+        });
+
+    </script>
+
+
+}

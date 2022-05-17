@@ -1,0 +1,281 @@
+﻿@model VistaCuentas
+
+@{
+    //Layout = "_PlantillaFichas";
+    Layout = "_PlantillaInicio";
+}
+
+@if (Model.usuario != null)
+{
+    <div class=" row flex-lg-row contenedorFich" id="contenedorFich">
+
+        <form method="post" enctype="multipart/form-data">
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
+
+                    <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@Model.usuario.Imagen" class="imgFicha" id="cuentaFic">
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" style="z-index:1;position:relative;top:-6%;">
+
+                    <i class="fa fa-plus-square-o IconFicha"></i>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12" id="IconIns" style="z-index: 2; position: absolute; top: 61%; left: 0%; opacity:1;">
+
+                    <input type="file" id="FichInp" name="ImagenUsuario" />
+
+                </div>
+
+                <!--Cuenta usuario-->
+                <div class="col-lg-12 col-md-12 col-sm-12 datosUsuario" style="position:relative;top:-12%;">
+                    <div class="row flex-lg-row">
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="nombre" class="form-label mb-2 LabelDisen">Nombre:</label>
+                            <input type="text" class="form-control InputDisen" name="Nombre" value="@Model.usuario.Nombre" disabled>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                            <span class="IconModif" id="nombre"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="apel" class="form-label mb-2 LabelDisen">Apellidos:</label>
+                            <input type="text" class="form-control InputDisen" name="Apellidos" value="@Model.usuario.Apellidos" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                            <span class="IconModif" id="apellidos"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="telefono" class="form-label mb-2 LabelDisen">Teléfono:</label>
+                            <input type="text" class="form-control InputDisen" name="Telefono" value="@Model.usuario.Telefono" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                            <span class="IconModif" id="telefono"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad:</label>
+                            <input type="text" class="form-control InputDisen" name="Ciudad" value="@Model.usuario.Ciudad" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                            <span class="IconModif" id="ciudad"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="usuario" class="form-label mb-2 LabelDisen">Nombre de usuario:</label>
+                            <input type="text" class="form-control InputDisen" name="NombreUsuario" value="@Model.usuario.NombreUsuario" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12" style="display: flex; justify-content: flex-start; align-items: end;">
+                            <span class="IconModif" id="nombreUsuario"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+
+                            <label for="pwd" class="form-label mb-2 LabelDisen">Password:</label>
+                            <input type="text" class="form-control InputDisen" name="Password" value="@Model.usuario.Password" disabled>
+                        </div>
+
+                        <div class="col-lg-1" style="display: flex; justify-content: flex-start; align-items: end;">
+                            <span class="IconModif" id="password"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 btnLogin">
+                             <button type="submit" class="btn btn-outline-success mt-3 BotonDisen" id="botonModificar">Modificar Cuenta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+}
+
+@if (Model.protectora != null)
+{
+
+    <div class="container row flex-lg-row contenedorFich">
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
+
+                    <img src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@Model.protectora.Imagen" class="imgFicha" id="cuentaFic">
+
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12" style="z-index:1;position:relative;top:-6%;">
+
+                    <i class="fa fa-plus-square-o IconFicha"></i>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12" style="z-index: 2; position: absolute; top: 61%; left: 0%; opacity: 0;">
+
+                    <input type="file" id="FichInp" name="ImagenProtectora" />
+
+                </div>
+
+                <!--Cuenta Protectora-->
+                <div class="col-lg-12 col-md-12 col-sm-12 datosProtectora" style="position:relative;top:-12%;">
+
+                    <div class="row flex-lg-row">
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="nombre" class="form-label mb-2 LabelDisen">Nombre de la protectora:</label>
+                            <input type="text" class="form-control InputDisen" name="Nombre" value="@Model.protectora.Nombre" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12">
+                            <span class="IconModif" id="nombre"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="direccion" class="form-label mb-2 LabelDisen">Direccion:</label>
+                            <input type="text" class="form-control InputDisen" name="Direccion" value="@Model.protectora.Direccion" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12">
+                            <span class="IconModif" id="direccion"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad:</label>
+                            <input type="text" class="form-control InputDisen" name="Ciudad" value="@Model.protectora.Ciudad" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12">
+                            <span class="IconModif" id="ciudad"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="telefono" class="form-label mb-2 LabelDisen">Contacto:</label>
+                            <input type="text" class="form-control InputDisen" name="Telefono" value="@Model.protectora.Telefono" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12">
+                            <span class="IconModif" id="telefono"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="paypal" class="form-label mb-2 LabelDisen">URL de perfil en PayPal:</label>
+                            <input type="text" class="form-control InputDisen" name="Paypal" value="@Model.protectora.Paypal" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12">
+                            <span class="IconModif" id="paypal"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="cuentBanco" class="form-label mb-2 LabelDisen">Nº de cuenta bancaria:</label>
+                            <input type="text" class="form-control InputDisen" name="Tarjeta" value="@Model.protectora.Tarjeta" disabled>
+                        </div>
+
+                        <div class="col-lg-1 col-md-1 col-sm-12">
+                            <span class="IconModif" id="tarjeta"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <label for="pwd" class="form-label mb-2 LabelDisen">Password:</label>
+                            <input type="text" class="form-control InputDisen" name="Password" value="@Model.protectora.Password" disabled>
+                        </div>
+
+                        <div class="col-lg-1">
+                            <span class="IconModif" id="password"><i class="fa fa-pencil-square"></i></span>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 btnLogin">
+                            <button type="submit" class="btn btn-outline-success mt-3 BotonDisen" id="botonModificar">Modificar Cuenta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+}
+
+
+@section codigoInicio{
+    <script>
+
+        $(document).ready(function () {
+
+            var cont = 0;
+
+            $("#Icono").click(function () {
+
+                cont += 1;
+
+                if (cont % 2 != 0) {
+
+                    $("#mySidenav1").css("width", "250px");
+                    $("#mySidenav2").css("width", "250px");
+                } else {
+
+                    $("#mySidenav1").css("width", "0");
+                    $("#main").css("marginLeft", "0");
+
+                    $("#mySidenav2").css("width", "0");
+                }
+
+            });
+
+            $("#Cl1").click(function () {
+
+                $("#mySidenav1").css("width", "0");
+
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("#Cl2").click(function () {
+
+                $("#mySidenav2").css("width", "0");
+                $("#main").css("marginLeft", "0");
+            });
+
+            $("span").click(function () {
+
+                var valor = $(this).attr("id");
+                var inputs = $("input");
+
+                for (var i = 0; i < inputs.length; i++) {
+
+                    if (inputs[i].getAttribute("name").toUpperCase() == valor.toUpperCase()) {
+
+                        inputs[i].removeAttribute("disabled");
+                    } else {
+                        inputs[i].setAttribute("disabled", true);
+                    }
+                }
+            });
+
+            $(document).on('change', '#FichInp', function (e) {
+
+                var TmpPath = URL.createObjectURL(e.target.files[0]);
+                $("#cuentaFic").attr("src", TmpPath);
+            });
+
+
+            $("#botonModificar").click(function () {
+
+                var inputs = $("input").removeAttribute("disabled");
+                var select = $("select").removeAttribute("disabled");
+
+            });
+
+        });
+
+    </script>
+}
