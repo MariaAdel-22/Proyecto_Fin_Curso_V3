@@ -91,7 +91,7 @@ namespace Proyecto_AdoPet.Controllers
 
             using (Stream stream = imagenAnimal.OpenReadStream())
             {
-                await this.servS3.UploadFileAsync(stream, fileName);
+                await this.servS3.UploadFileAsync(stream, fileName, "https://bucket-proyecto.s3.amazonaws.com/Animales/");
             }
 
             if (await this.service.InsertarAnimal(imagenAnimal.FileName, nombre, edad, genero, peso, especie,token) == true)
@@ -137,7 +137,7 @@ namespace Proyecto_AdoPet.Controllers
 
                 using (Stream stream = imagenAnimalModificado.OpenReadStream())
                 {
-                    await this.servS3.UploadFileAsync(stream, fileName);
+                    await this.servS3.UploadFileAsync(stream, fileName, "https://bucket-proyecto.s3.amazonaws.com/Animales/");
                 }
 
                 if (await this.service.ModificarAnimal(int.Parse(TempData["IDANIMAL"].ToString()), imagenAnimalModificado.FileName, Nombre, Edad, Genero, Peso, Especie, token) == true)
@@ -147,21 +147,27 @@ namespace Proyecto_AdoPet.Controllers
 
                     return RedirectToAction("AnimalesProtectora", "Protectora");
                 }
+                else {
+
+                    return View();
+                }
             }
             else {
 
                 Animal an = await this.service.BuscarAnimal(int.Parse(TempData["IDANIMAL"].ToString()), token);
 
-                if (await this.service.ModificarAnimal(int.Parse(TempData["IDANIMAL"].ToString()),an.Imagen, Nombre, Edad, Genero, Peso, Especie, token) == true)
+                if (await this.service.ModificarAnimal(an.CodigoAnimal, an.Imagen, Nombre, Edad, Genero, Peso, Especie, token) == true)
                 {
 
                     ViewBag.IdProtectora = cuenta.protectora.IdProtectora;
 
                     return RedirectToAction("AnimalesProtectora", "Protectora");
                 }
-            }
+                else {
 
-            return View();
+                    return View();
+                }
+            }  
         }
 
         /*Modal en vista parcial para eliminar animal*/

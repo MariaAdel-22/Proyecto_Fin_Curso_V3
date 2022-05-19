@@ -59,7 +59,7 @@ namespace Proyecto_AdoPet.Controllers
 
                     using (Stream stream = ImagenUsuario.OpenReadStream())
                     {
-                        await this.servS3.UploadFileAsync(stream, fileName);
+                        await this.servS3.UploadFileAsync(stream, fileName, "https://bucket-proyecto.s3.amazonaws.com/Usuarios/");
                     }
 
                     if (await this.service.ModificarUsuario(cuenta.usuario.Dni, Nombre, Apellidos, Telefono, Ciudad, NombreUsuario, Password, ImagenUsuario.FileName, token) == true)
@@ -119,7 +119,7 @@ namespace Proyecto_AdoPet.Controllers
 
                     using (Stream stream = ImagenProtectora.OpenReadStream())
                     {
-                        await this.servS3.UploadFileAsync(stream, fileName);
+                        await this.servS3.UploadFileAsync(stream, fileName, "https://bucket-proyecto.s3.amazonaws.com/Protectoras/");
                     }
 
                     if (await this.service.ModificarProtectora(cuenta.protectora.IdProtectora, Nombre, Direccion, Ciudad, Telefono, Tarjeta, Paypal, Password, ImagenProtectora.FileName, token) == true)

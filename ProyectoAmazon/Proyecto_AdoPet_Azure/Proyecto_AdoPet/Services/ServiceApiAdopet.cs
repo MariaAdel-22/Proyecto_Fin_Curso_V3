@@ -383,7 +383,7 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -395,7 +395,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(request, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi+request, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -420,7 +420,7 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -432,7 +432,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PutAsync(request, content);
+                HttpResponseMessage response = await client.PutAsync(this.UrlApi+request, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -456,14 +456,14 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
 
                 string request = "/api/protectoras/eliminaranimal/" + idAnimal;
 
-                HttpResponseMessage response = await client.DeleteAsync(request);
+                HttpResponseMessage response = await client.DeleteAsync(this.UrlApi+request);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -545,15 +545,17 @@ namespace Proyecto_AdoPet.Services
         }
 
 
-        //Insertar Comentario dependerá de un Flow 
-        public async Task<Boolean> InsertarComentario(int idanimal,string codigo,string mensaje,string tipoCuenta,string email, string token) {
+        ///////////////////////////MODIFICAR USANDO AWS O NORMAL ARREGLALO ////////////////////////////
+
+
+        /*public async Task<Boolean> InsertarComentario(int idanimal,string codigo,string mensaje,string tipoCuenta,string email, string token) {
 
             string urlComentarios = "https://prod-228.westeurope.logic.azure.com:443/workflows/05a0b9d37dce4499a1cea01b63e83742/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=G71PWAxGkHu20IsFtlyf3HWplMMQsaGw0QOx0iyt0c8";
 
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+               // client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 //client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -564,7 +566,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(urlComentarios, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi urlComentarios, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -578,14 +580,14 @@ namespace Proyecto_AdoPet.Services
             }
 
 
-        }
+        }*/
 
         public async Task<Comentarios> ModificarComentario(int idComentario, string Comentario,string token) {
 
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -604,7 +606,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PutAsync(request, content);
+                HttpResponseMessage response = await client.PutAsync(this.UrlApi+request, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -626,14 +628,14 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+               // client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
 
                 string request = "/api/animal/eliminarcomentario/" + idComentario;
 
-                HttpResponseMessage response = await client.DeleteAsync(request);
+                HttpResponseMessage response = await client.DeleteAsync(this.UrlApi+request);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -664,7 +666,7 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+               //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -677,7 +679,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(request, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi+request, content);
 
             }
         }
@@ -689,14 +691,14 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
 
                 string request = "/api/animal/eliminarfavorito/"+codigoAnimal+"/"+codigo;
 
-                HttpResponseMessage response = await client.DeleteAsync(request);
+                HttpResponseMessage response = await client.DeleteAsync(this.UrlApi+request);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -731,7 +733,7 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -744,7 +746,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(request, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi+request, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -784,7 +786,7 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -797,7 +799,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(request, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi+request, content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -892,7 +894,7 @@ namespace Proyecto_AdoPet.Services
             using (HttpClient client = new HttpClient())
             {
 
-                client.BaseAddress = new Uri(this.UrlApi);
+                //client.BaseAddress = new Uri(this.UrlApi);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.Header);
                 client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
@@ -905,7 +907,7 @@ namespace Proyecto_AdoPet.Services
 
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync(request, content);
+                HttpResponseMessage response = await client.PostAsync(this.UrlApi+request, content);
 
                 if (response.IsSuccessStatusCode)
                 {

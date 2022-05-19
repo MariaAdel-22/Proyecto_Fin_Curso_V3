@@ -22,13 +22,14 @@ namespace Proyecto_AdoPet.Services
 
         //Es importante este metodo ya que, aunque insertemos la url en el método InsertarDoctor debemos subirlo al bucket
 
-        public async Task<bool> UploadFileAsync(Stream stream, string fileName){
+        public async Task<bool> UploadFileAsync(Stream stream, string fileName,string path){
 
             PutObjectRequest request = new PutObjectRequest
             {
                 InputStream = stream,
                 Key = fileName,
-                BucketName = this.bucketName
+                BucketName = this.bucketName,
+                FilePath=path
             };
 
             PutObjectResponse response =await this.awsClient.PutObjectAsync(request);
