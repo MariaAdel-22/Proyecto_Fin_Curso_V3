@@ -85,7 +85,7 @@ namespace Proyecto_AdoPet.Controllers
 
                 using (Stream stream = imagenU.OpenReadStream())
                 {
-                    await this.servS3.UploadFileAsync(stream, fileName, "https://bucket-proyecto.s3.amazonaws.com/Usuarios/");
+                    await this.servS3.UploadFileAsync(stream, fileName, "/Usuarios");
                 }
 
                 //Una vez añadido debemos implantar la seguridad y recuperar el token de dicha cuenta
@@ -104,7 +104,7 @@ namespace Proyecto_AdoPet.Controllers
 
                 using (Stream stream = imagenP.OpenReadStream())
                 {
-                    await this.servS3.UploadFileAsync(stream, fileName, "https://bucket-proyecto.s3.amazonaws.com/Protectoras/");
+                    await this.servS3.UploadFileAsync(stream, fileName, "/Protectoras");
                 }
 
                 //Una vez añadido debemos implantar la seguridad y recuperar el token de dicha cuenta

@@ -16,7 +16,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
 
-                    <img src="https://bucket-proyecto.s3.amazonaws.com/Usuarios/@Model.usuario.Imagen" class="imgFicha" id="cuentaFic">
+                    <img src="https://bucket-proyecto.s3.amazonaws.com//Usuarios/@Model.usuario.Imagen" class="imgFicha" id="cuentaFic">
 
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12" style="z-index:1;position:relative;top:-6%;">
@@ -27,7 +27,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12" id="IconIns" style="z-index: 2; position: absolute; top: 61%; left: 0%; opacity:1;">
 
-                    <input type="file" id="FichInp" name="ImagenUsuario" />
+                    <input type="file" id="FichInp" name="ImagenUsuario" value="@Model.usuario.Imagen"/>
 
                 </div>
 
@@ -111,7 +111,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12 mt-lg-5 mt-md-4 mt-sm-2">
 
-                    <img src="https://bucket-proyecto.s3.amazonaws.com/Protectoras/@Model.protectora.Imagen" class="imgFicha" id="cuentaFic">
+                    <img src="https://bucket-proyecto.s3.amazonaws.com//Protectoras/@Model.protectora.Imagen" class="imgFicha" id="cuentaFic">
 
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12" style="z-index:1;position:relative;top:-6%;">
@@ -122,7 +122,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12" style="z-index: 2; position: absolute; top: 61%; left: 0%; opacity: 0;">
 
-                    <input type="file" id="FichInp" name="ImagenProtectora" />
+                    <input type="file" id="FichInp" name="ImagenProtectora" value="@Model.protectora.Imagen" />
 
                 </div>
 
@@ -132,7 +132,7 @@
                     <div class="row flex-lg-row">
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="nombre" class="form-label mb-2 LabelDisen">Nombre de la protectora:</label>
+                            <label for="nombre" class="form-label mb-2 LabelDisen">Nombre de la protectora</label>
                             <input type="text" class="form-control InputDisen" name="Nombre" value="@Model.protectora.Nombre" disabled>
                         </div>
 
@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="direccion" class="form-label mb-2 LabelDisen">Direccion:</label>
+                            <label for="direccion" class="form-label mb-2 LabelDisen">Direccion</label>
                             <input type="text" class="form-control InputDisen" name="Direccion" value="@Model.protectora.Direccion" disabled>
                         </div>
 
@@ -150,7 +150,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad:</label>
+                            <label for="ciudad" class="form-label mb-2 LabelDisen">Ciudad</label>
                             <input type="text" class="form-control InputDisen" name="Ciudad" value="@Model.protectora.Ciudad" disabled>
                         </div>
 
@@ -159,7 +159,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="telefono" class="form-label mb-2 LabelDisen">Contacto:</label>
+                            <label for="telefono" class="form-label mb-2 LabelDisen">Contacto</label>
                             <input type="text" class="form-control InputDisen" name="Telefono" value="@Model.protectora.Telefono" disabled>
                         </div>
 
@@ -168,7 +168,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="paypal" class="form-label mb-2 LabelDisen">URL de perfil en PayPal:</label>
+                            <label for="paypal" class="form-label mb-2 LabelDisen">Paypal</label>
                             <input type="text" class="form-control InputDisen" name="Paypal" value="@Model.protectora.Paypal" disabled>
                         </div>
 
@@ -177,7 +177,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="cuentBanco" class="form-label mb-2 LabelDisen">Nº de cuenta bancaria:</label>
+                            <label for="cuentBanco" class="form-label mb-2 LabelDisen">Nº de cuenta bancaria</label>
                             <input type="text" class="form-control InputDisen" name="Tarjeta" value="@Model.protectora.Tarjeta" disabled>
                         </div>
 
@@ -186,7 +186,7 @@
                         </div>
 
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <label for="pwd" class="form-label mb-2 LabelDisen">Password:</label>
+                            <label for="pwd" class="form-label mb-2 LabelDisen">Password</label>
                             <input type="text" class="form-control InputDisen" name="Password" value="@Model.protectora.Password" disabled>
                         </div>
 
@@ -270,11 +270,19 @@
 
             $("#botonModificar").click(function () {
 
-                var inputs = $("input").removeAttribute("disabled");
-                var select = $("select").removeAttribute("disabled");
+                var inputs = $("input");
+                var select = $("select");
 
+                for (var i=0; i < inputs.length;i++) {
+
+                    inputs[i].removeAttribute("disabled");
+                }
+
+                for (var j = 0; j < select.length;j++) {
+
+                    select[j].removeAttribute("disabled");
+                }
             });
-
         });
 
     </script>

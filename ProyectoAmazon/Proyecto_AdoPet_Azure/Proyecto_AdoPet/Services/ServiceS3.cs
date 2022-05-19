@@ -27,9 +27,9 @@ namespace Proyecto_AdoPet.Services
             PutObjectRequest request = new PutObjectRequest
             {
                 InputStream = stream,
-                Key = fileName,
+                Key = path+"/" + fileName,
                 BucketName = this.bucketName,
-                FilePath=path
+                CannedACL = S3CannedACL.PublicRead,
             };
 
             PutObjectResponse response =await this.awsClient.PutObjectAsync(request);
