@@ -64,6 +64,24 @@ namespace ApiProyectoAmazon.Repositories
             return cuenta;
         }
 
+        public void EliminarCuenta(string codigo,string tipocuenta) {
+
+            if (tipocuenta == "USUARIOS") {
+
+                Usuario usu = this.context.Usuarios.FirstOrDefault(x => x.Dni == codigo);
+
+                this.context.Usuarios.Remove(usu);
+
+            } else if (tipocuenta == "PROTECTORAS") {
+
+                Protectora pro = this.context.Protectoras.FirstOrDefault(x => x.IdProtectora == int.Parse(codigo));
+
+                this.context.Protectoras.Remove(pro);
+            }
+
+            this.context.SaveChanges();
+        }
+
         public Usuario BuscarUsuario(string dni) {
 
             return this.context.Usuarios.FirstOrDefault(x => x.Dni == dni);

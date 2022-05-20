@@ -189,13 +189,12 @@ namespace Proyecto_AdoPet.Controllers
             {
                 if (cuenta.TipoCuenta == "PROTECTORAS")
                 {
-                    //Se filtrará si es un correo electrónico o número de teléfono
-                   // await this.service.InsertarComentario(idAnimal, cuenta.protectora.IdProtectora.ToString(), comentarioCuerpo, cuenta.TipoCuenta, cuenta.protectora.Telefono, token);
+                    await this.service.InsertarComentario(idAnimal, cuenta.protectora.IdProtectora.ToString(),comentarioCuerpo,token);
+                   
                 }
                 else if (cuenta.TipoCuenta == "USUARIOS")
                 {
-                    //Se filtrará si es un correo electrónico o número de teléfono
-                    //await this.service.InsertarComentario(idAnimal, cuenta.usuario.Dni, comentarioCuerpo, cuenta.TipoCuenta, cuenta.usuario.Telefono, token);
+                    await this.service.InsertarComentario(idAnimal, cuenta.usuario.Dni, comentarioCuerpo, token);
                 }
             }
             else {

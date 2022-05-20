@@ -87,6 +87,14 @@ namespace ApiProyectoAmazon.Controllers
             return this.repoInicio.BuscarIdCuenta(cuenta.CodigoCuenta);
         }
 
+        [HttpDelete]
+        [Authorize]
+        [Route("[action]/{id}/{tipocuenta}")]
+        public ActionResult EliminarCuenta(string id,string tipocuenta) {
+
+            return this.EliminarCuenta(id, tipocuenta);
+        }
+
         [HttpGet]
         [Authorize]
         [Route("[action]/{dni}")]

@@ -169,6 +169,14 @@ namespace Proyecto_AdoPet.Services
             return usu;
         }
 
+        public async Task EliminarCuenta(string codigo,string tipocuenta,string token) {
+
+            string request = "/api/inicio/eliminarcuenta/" + codigo + "/" + tipocuenta;
+
+            await this.CallApiAsync<string>(request, token);
+        }
+
+
         public async Task<Boolean> InsertarUsuario(string dni,string nombre,string apellidos,string telefono,string ciudad, string nombreUsuario, string password,string imagen)
         {
             Boolean procesoTerminado = false;
@@ -548,6 +556,15 @@ namespace Proyecto_AdoPet.Services
             return com;
         }
 
+        public async Task<Comentarios> FindMensajeComentario(int idanimal,string mensaje, string token)
+        {
+            string request = "/api/animal/FindMensajeComentario/" + idanimal+"/"+mensaje;
+
+            Comentarios com = await this.CallApiAsync<Comentarios>(request, token);
+
+            return com;
+        }
+
         private void CrearExcel(string carpeta,string archivo,string codigoPersona) {
 
             SLDocument oSLDocument = new SLDocument();
@@ -561,12 +578,50 @@ namespace Proyecto_AdoPet.Services
 
             oSLDocument.ImportDataTable(1, 1, dt, true);
             oSLDocument.SaveAs(carpeta + archivo);
-
         }
 
-        ///////////////////////////MODIFICAR USANDO AWS O NORMAL ARREGLALO ////////////////////////////
 
-        public async Task InsertarComentario(int idanimal,string codigoPersona,string mensaje,string token) {
+        private async Task UpdateExecelFile(string carpeta,string archivo,string codigoPersona, string token)
+        {
+            string FilePath =carpeta+archivo;
+
+            using (SLDocument sl = new SLDocument())
+            {
+                FileStream fs = new FileStream(FilePath, FileMode.Open);
+                SLDocument sheet = new SLDocument(fs, "Sheet");
+
+                SLWorksheetStatistics stats = sheet.GetWorksheetStatistics();
+                for (int j = 1; j < stats.EndRowIndex; j++)
+                {
+                    string codigo = sheet.GetCellValueAsString(j, 1);
+                    int aviso = sheet.GetCellValueAsInt32(j, 2);
+
+                    if (codigo == codigoPersona)
+                    {
+
+                        if (aviso < 3)
+                        {
+                            sl.SetCellValueNumeric("NumeroAvisos", (aviso + 1).ToString());
+
+                        }
+                        else
+                        {
+
+                            VistaCuentas cuenta = await this.BuscarCuenta(token);
+                            await this.EliminarCuenta(cuenta.CodigoCuenta, cuenta.CodigoCuenta, token);
+                        }
+                    }
+
+                }
+
+                //fs.Close();
+                sheet.SaveAs(FilePath);
+            }
+        }
+
+            ///////////////////////////MODIFICAR USANDO AWS O NORMAL ARREGLALO ////////////////////////////
+
+            public async Task InsertarComentario(int idanimal,string codigoPersona,string mensaje,string token) {
 
             AmazonComprehendClient comprehendClient = new AmazonComprehendClient();
 
@@ -582,10 +637,6 @@ namespace Proyecto_AdoPet.Services
 
             if (detectSentimentResponse.Sentiment == "NEGATIVE")
             {
-
-               // Comentarios com = this.FindComentario();
-
-
                 string carpeta1 = @"C:\Users\maria\Documents\";
 
                 string archivo1 = @"Avisos.xlsx";
@@ -593,41 +644,78 @@ namespace Proyecto_AdoPet.Services
                 if (File.Exists(Path.Combine(carpeta1, archivo1)))
 
                 {
+                
+                   await this.UpdateExecelFile(carpeta1,archivo1,codigoPersona,token);
+
                     //Console.WriteLine(String.Format("El archivo {0} está dentro de la carpeta {1}.", archivo, carpeta));
 
-                    SLDocument sl = new SLDocument(carpeta1+archivo1);
+                   /* SLDocument sl = new SLDocument(carpeta1 + archivo1);
 
-                        int iRow = 2;
-                        while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
+                    int iRow = 2;
+                    while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
+                    {
+                        string codigo = sl.GetCellValueAsString(iRow, 1);
+                        int aviso = sl.GetCellValueAsInt32(iRow, 2);
+
+                        if (codigo == codigoPersona)
                         {
-                            string codigo = sl.GetCellValueAsString(iRow, 1);
-                            int aviso = sl.GetCellValueAsInt32(iRow, 2);
 
-                            if (codigo == codigoPersona) {
-
-                                if (aviso < 3)
-                                {
-
-                                    sl.SetCellValueNumeric("NumeroAvisos",(aviso+1).ToString());
-                                    sl.Save();
-                                }
-                                else { 
-                            
-                                    
-                                }
+                            if (aviso < 3)
+                            {
+                                sl.SetCellValueNumeric("NumeroAvisos", (aviso + 1).ToString());
+                                
                             }
+                            else
+                            {
 
-                            iRow++;
+                                VistaCuentas cuenta = await this.BuscarCuenta(token);
+                                await this.EliminarCuenta(cuenta.CodigoCuenta, cuenta.CodigoCuenta, token);
+                            }
                         }
+
+                        iRow++;
+                    }*/
+
+                    //sl.Save();
+
+                    //sl.ActiveWorkbook.Save();
+
                 }
 
                 else
 
                 {
-                    this.CrearExcel(archivo1,carpeta1,codigoPersona);
+                    this.CrearExcel(carpeta1,archivo1,codigoPersona);
 
                 }
 
+            }
+            else
+            {
+
+                string request = "/api/animal/insertarcomentario";
+
+                using (HttpClient client = new HttpClient())
+                {
+                    // client.BaseAddress = new Uri(this.UrlApi);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(this.Header);
+                    client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
+
+                    Comentarios com = new Comentarios { CodigoMensaje = 0, Codigo = codigoPersona, CodigoAnimal = idanimal, Mensaje = mensaje };
+
+                    string json = JsonConvert.SerializeObject(com);
+
+                    StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(this.UrlApi + request, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+
+                    }
+
+                }
             }
         }
 
