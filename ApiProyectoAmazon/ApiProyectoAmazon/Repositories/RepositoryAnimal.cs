@@ -156,6 +156,12 @@ namespace ApiProyectoAmazon.Repositories
             return this.context.Comentarios.Where(x => x.CodigoMensaje == idComentario).FirstOrDefault();
         }
 
+
+        public Comentarios FindMensajeComentario(int idanimal,string mensaje) {
+
+            return this.context.Comentarios.FirstOrDefault(x => x.CodigoAnimal == idanimal && x.Mensaje == mensaje);
+        }
+
         public Favoritos FindFavorito(int codigoAnimal,string dni)
         {
 

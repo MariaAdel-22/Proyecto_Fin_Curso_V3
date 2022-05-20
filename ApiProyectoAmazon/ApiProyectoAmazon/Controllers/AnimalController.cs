@@ -91,6 +91,15 @@ namespace ApiProyectoAmazon.Controllers
             return this.repoAn.FindComentario(idComentario);
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("[action]/{idanimal}/{mensaje}")]
+        public ActionResult<Comentarios> FindMensajeComentario(int idanimal,string mensaje)
+        {
+            return this.repoAn.FindMensajeComentario(idanimal,mensaje);
+        }
+
+
         [HttpPut]
         [Authorize]
         [Route("[action]")]

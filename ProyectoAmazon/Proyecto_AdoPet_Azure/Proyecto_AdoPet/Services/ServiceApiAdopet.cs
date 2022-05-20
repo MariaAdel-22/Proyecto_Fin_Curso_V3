@@ -8,6 +8,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon.Comprehend;
+using Amazon.Comprehend.Model;
+using System.IO;
+using SpreadsheetLight;
 
 namespace Proyecto_AdoPet.Services
 {
@@ -544,8 +548,88 @@ namespace Proyecto_AdoPet.Services
             return com;
         }
 
+        private void CrearExcel(string carpeta,string archivo,string codigoPersona) {
+
+            SLDocument oSLDocument = new SLDocument();
+
+            System.Data.DataTable dt = new System.Data.DataTable();
+
+            dt.Columns.Add("CodigoPersona", typeof(string));
+            dt.Columns.Add("NumeroAvisos", typeof(int));
+
+            dt.Rows.Add(codigoPersona, 1);
+
+            oSLDocument.ImportDataTable(1, 1, dt, true);
+            oSLDocument.SaveAs(carpeta + archivo);
+
+        }
 
         ///////////////////////////MODIFICAR USANDO AWS O NORMAL ARREGLALO ////////////////////////////
+
+        public async Task InsertarComentario(int idanimal,string codigoPersona,string mensaje,string token) {
+
+            AmazonComprehendClient comprehendClient = new AmazonComprehendClient();
+
+            DetectSentimentRequest detectSentimentRequest = new DetectSentimentRequest
+            {
+                Text = mensaje,
+                LanguageCode = "es"
+            };
+
+            DetectSentimentResponse detectSentimentResponse = await
+                comprehendClient.DetectSentimentAsync(detectSentimentRequest);
+
+
+            if (detectSentimentResponse.Sentiment == "NEGATIVE")
+            {
+
+               // Comentarios com = this.FindComentario();
+
+
+                string carpeta1 = @"C:\Users\maria\Documents\";
+
+                string archivo1 = @"Avisos.xlsx";
+
+                if (File.Exists(Path.Combine(carpeta1, archivo1)))
+
+                {
+                    //Console.WriteLine(String.Format("El archivo {0} está dentro de la carpeta {1}.", archivo, carpeta));
+
+                    SLDocument sl = new SLDocument(carpeta1+archivo1);
+
+                        int iRow = 2;
+                        while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
+                        {
+                            string codigo = sl.GetCellValueAsString(iRow, 1);
+                            int aviso = sl.GetCellValueAsInt32(iRow, 2);
+
+                            if (codigo == codigoPersona) {
+
+                                if (aviso < 3)
+                                {
+
+                                    sl.SetCellValueNumeric("NumeroAvisos",(aviso+1).ToString());
+                                    sl.Save();
+                                }
+                                else { 
+                            
+                                    
+                                }
+                            }
+
+                            iRow++;
+                        }
+                }
+
+                else
+
+                {
+                    this.CrearExcel(archivo1,carpeta1,codigoPersona);
+
+                }
+
+            }
+        }
 
 
         /*public async Task<Boolean> InsertarComentario(int idanimal,string codigo,string mensaje,string tipoCuenta,string email, string token) {
