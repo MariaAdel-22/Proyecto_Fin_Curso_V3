@@ -31,10 +31,10 @@ namespace ApiProyectoAmazon.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("[action]/{emisor}/{receptor}")]
-        public ActionResult<Chats> BuscarChatEmisorReceptor(string emisor, string receptor) {
+        [Route("[action]/{codigoSala}")]
+        public ActionResult<Chats> GetEmisorChats(string codigoSala) {
 
-            return this.repoChat.BuscarChat(emisor, receptor);
+            return this.repoChat.GetEmisorChats(codigoSala);
         }
 
         [HttpGet]

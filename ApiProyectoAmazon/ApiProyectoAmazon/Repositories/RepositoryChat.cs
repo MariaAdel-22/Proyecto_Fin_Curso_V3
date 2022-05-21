@@ -42,11 +42,6 @@ namespace ApiProyectoAmazon.Repositories
             return consulta.ToList();
         }
 
-        public Chats BuscarChat(string emisor,string receptor) {
-
-            return this.context.Chats.Where(x => x.CodigoCuenta == emisor && x.CodigoSala == receptor).FirstOrDefault();
-        }
-
         private int GetMaxCodigoChats()
         {
 
@@ -81,17 +76,17 @@ namespace ApiProyectoAmazon.Repositories
 
         public string GetEmisorChatVacio(string emisor)
         {
-            // var consulta = from datos in this.context.Chats where datos.CodigoCuenta == emisor select datos.CodigoSala;
-            //return consulta.FirstOrDefault();
             return this.context.Chats.Where(x => x.CodigoCuenta == emisor).Select(x => x.CodigoSala).FirstOrDefault();
         }
 
         public Chats GetEmisorChats(string codigoSala)
         {
-            //var consulta = from datos in this.context.Chats where datos.CodigoChat == int.Parse(codigoSala) select datos;
-            //return consulta.FirstOrDefault();
-
             return this.context.Chats.Where(x => x.CodigoChat == int.Parse(codigoSala)).FirstOrDefault();
+        }
+
+        public string GetEmisorChat(string receptor)
+        {
+            return this.context.Chats.Where(x=>x.CodigoSala == receptor).Select(x=>x.CodigoCuenta).FirstOrDefault();
         }
 
         public String GetNombreProtectora(int codigoProtectora)
@@ -107,14 +102,14 @@ namespace ApiProyectoAmazon.Repositories
         public Chats GetCodigoSalaPrincipal(string emisor, string receptor)
         {
 
-            string sql = "FIND_SALA (@CODIGO_EMISOR,@CODIGO_RECEPTOR)";
+            var consulta = from datos in this.context.Chats where datos.CodigoCuenta == emisor && datos.CodigoSala == receptor select datos;
 
-            SqlParameter paramEmi = new SqlParameter("@CODIGO_EMISOR", emisor);
-            SqlParameter paramRecep = new SqlParameter("@CODIGO_RECEPTOR", receptor);
+            if (consulta == null) {
 
-            var consulta = this.context.Chats.FromSqlRaw(sql, paramEmi, paramRecep);
+                consulta = from datos in this.context.Chats where datos.CodigoCuenta == receptor && datos.CodigoSala == emisor select datos;
+            }
 
-            return consulta.AsEnumerable().FirstOrDefault();
+            return consulta.FirstOrDefault();
         }
 
         public Chats FindChatPrincipal(int codigo)
@@ -124,24 +119,35 @@ namespace ApiProyectoAmazon.Repositories
 
         public List<Chat> GetHistorialChat(int codigoSala)
         {
-            string sql = "GET_HISTORIAL_CHATS (@CODIGOSALA)";
+            return this.context.Chat.Where(x => x.CodigoSalaChat == codigoSala).ToList();
+        }
 
-            SqlParameter pamCodSala = new SqlParameter("@CODIGOSALA", codigoSala);
+        private int GetMaxCodigoChat()
+        {
 
-            var consulta = this.context.Chat.FromSqlRaw(sql, pamCodSala);
-            return consulta.ToList();
+            if (this.context.Chat.Count() == 0)
+            {
+
+                return 1;
+            }
+            else
+            {
+
+                var consulta = (from datos in this.context.Chat select datos.CodigoChat).Max();
+
+                int idCh = consulta + 1;
+
+                return idCh;
+            }
         }
 
         public void InsertarMensajeChat(int idSala, string emisor, string receptor, string mensaje)
         {
-            string sql = "INSERTAR_MENSAJE_CHAT (@CHATS_COD,@CODIGO_EMISOR,@CODIGO_RECEPTOR,@MENSAJE)";
 
-            SqlParameter pamCodSala = new SqlParameter("@CHATS_COD", idSala);
-            SqlParameter pamEmi = new SqlParameter("@CODIGO_EMISOR", emisor);
-            SqlParameter pamRec = new SqlParameter("@CODIGO_RECEPTOR", receptor);
-            SqlParameter pamMen = new SqlParameter("@MENSAJE", mensaje);
+            Chat chat = new Chat { CodigoChat = GetMaxCodigoChat(), CodigoSalaChat = idSala, CodigoDeCuenta = emisor, CodigoPersonaEnviado = receptor,Mensaje = mensaje };
 
-            this.context.Database.ExecuteSqlRaw(sql, pamCodSala, pamEmi, pamRec, pamMen);
+            this.context.Chat.Add(chat);
+            this.context.SaveChanges();
         }
     }
 }

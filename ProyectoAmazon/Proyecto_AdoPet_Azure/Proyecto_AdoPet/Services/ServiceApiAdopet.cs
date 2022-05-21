@@ -565,63 +565,8 @@ namespace Proyecto_AdoPet.Services
             return com;
         }
 
-        private void CrearExcel(string carpeta,string archivo,string codigoPersona) {
-
-            SLDocument oSLDocument = new SLDocument();
-
-            System.Data.DataTable dt = new System.Data.DataTable();
-
-            dt.Columns.Add("CodigoPersona", typeof(string));
-            dt.Columns.Add("NumeroAvisos", typeof(int));
-
-            dt.Rows.Add(codigoPersona, 1);
-
-            oSLDocument.ImportDataTable(1, 1, dt, true);
-            oSLDocument.SaveAs(carpeta + archivo);
-        }
-
-
-        private async Task UpdateExecelFile(string carpeta,string archivo,string codigoPersona, string token)
-        {
-            string FilePath =carpeta+archivo;
-
-            using (SLDocument sl = new SLDocument())
-            {
-                FileStream fs = new FileStream(FilePath, FileMode.Open);
-                SLDocument sheet = new SLDocument(fs, "Sheet");
-
-                SLWorksheetStatistics stats = sheet.GetWorksheetStatistics();
-                for (int j = 1; j < stats.EndRowIndex; j++)
-                {
-                    string codigo = sheet.GetCellValueAsString(j, 1);
-                    int aviso = sheet.GetCellValueAsInt32(j, 2);
-
-                    if (codigo == codigoPersona)
-                    {
-
-                        if (aviso < 3)
-                        {
-                            sl.SetCellValueNumeric("NumeroAvisos", (aviso + 1).ToString());
-
-                        }
-                        else
-                        {
-
-                            VistaCuentas cuenta = await this.BuscarCuenta(token);
-                            await this.EliminarCuenta(cuenta.CodigoCuenta, cuenta.CodigoCuenta, token);
-                        }
-                    }
-
-                }
-
-                //fs.Close();
-                sheet.SaveAs(FilePath);
-            }
-        }
-
-            ///////////////////////////MODIFICAR USANDO AWS O NORMAL ARREGLALO ////////////////////////////
-
-            public async Task InsertarComentario(int idanimal,string codigoPersona,string mensaje,string token) {
+      
+        public async Task InsertarComentario(int idanimal,string codigoPersona,string mensaje,string token) {
 
             AmazonComprehendClient comprehendClient = new AmazonComprehendClient();
 
@@ -635,64 +580,9 @@ namespace Proyecto_AdoPet.Services
                 comprehendClient.DetectSentimentAsync(detectSentimentRequest);
 
 
-            if (detectSentimentResponse.Sentiment == "NEGATIVE")
+            if (detectSentimentResponse.Sentiment == "POSITIVE" || detectSentimentResponse.Sentiment == "MIXED")
             {
-                string carpeta1 = @"C:\Users\maria\Documents\";
-
-                string archivo1 = @"Avisos.xlsx";
-
-                if (File.Exists(Path.Combine(carpeta1, archivo1)))
-
-                {
-                
-                   await this.UpdateExecelFile(carpeta1,archivo1,codigoPersona,token);
-
-                    //Console.WriteLine(String.Format("El archivo {0} está dentro de la carpeta {1}.", archivo, carpeta));
-
-                   /* SLDocument sl = new SLDocument(carpeta1 + archivo1);
-
-                    int iRow = 2;
-                    while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
-                    {
-                        string codigo = sl.GetCellValueAsString(iRow, 1);
-                        int aviso = sl.GetCellValueAsInt32(iRow, 2);
-
-                        if (codigo == codigoPersona)
-                        {
-
-                            if (aviso < 3)
-                            {
-                                sl.SetCellValueNumeric("NumeroAvisos", (aviso + 1).ToString());
-                                
-                            }
-                            else
-                            {
-
-                                VistaCuentas cuenta = await this.BuscarCuenta(token);
-                                await this.EliminarCuenta(cuenta.CodigoCuenta, cuenta.CodigoCuenta, token);
-                            }
-                        }
-
-                        iRow++;
-                    }*/
-
-                    //sl.Save();
-
-                    //sl.ActiveWorkbook.Save();
-
-                }
-
-                else
-
-                {
-                    this.CrearExcel(carpeta1,archivo1,codigoPersona);
-
-                }
-
-            }
-            else
-            {
-
+              
                 string request = "/api/animal/insertarcomentario";
 
                 using (HttpClient client = new HttpClient())
@@ -714,45 +604,9 @@ namespace Proyecto_AdoPet.Services
                     {
 
                     }
-
                 }
             }
         }
-
-
-        /*public async Task<Boolean> InsertarComentario(int idanimal,string codigo,string mensaje,string tipoCuenta,string email, string token) {
-
-            string urlComentarios = "https://prod-228.westeurope.logic.azure.com:443/workflows/05a0b9d37dce4499a1cea01b63e83742/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=G71PWAxGkHu20IsFtlyf3HWplMMQsaGw0QOx0iyt0c8";
-
-            using (HttpClient client = new HttpClient())
-            {
-
-               // client.BaseAddress = new Uri(this.UrlApi);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(this.Header);
-                //client.DefaultRequestHeaders.Add("Authorization", "bearer " + token);
-
-                FlowComentarioModel comentarioModel = new FlowComentarioModel { comentario = mensaje, CodigoPersona = codigo, email = email, tipoCuenta = tipoCuenta, idAnimal = idanimal };
-
-                string json = JsonConvert.SerializeObject(comentarioModel);
-
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(this.UrlApi urlComentarios, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-
-                    return true;
-                }
-                else {
-
-                    return false;
-                }
-            }
-
-
-        }*/
 
         public async Task<Comentarios> ModificarComentario(int idComentario, string Comentario,string token) {
 
