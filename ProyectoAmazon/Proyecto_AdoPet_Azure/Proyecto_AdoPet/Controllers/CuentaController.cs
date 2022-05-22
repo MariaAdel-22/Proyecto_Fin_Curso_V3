@@ -258,7 +258,7 @@ namespace Proyecto_AdoPet.Controllers
             return rooms;
         }
 
-        /*En esta vista se verán las diferentes salas de chat*/
+        /*En esta vista se verán las diferentes salas de chat!!!*/
         [AuthorizeCuentas]
         public async Task<IActionResult> SesionesChat(string codigoE, string codigoR = "0")
         {
